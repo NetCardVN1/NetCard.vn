@@ -2,228 +2,76 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>NetCard.vn - Hệ thống nạp thẻ uy tín</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NetCard.vn - Hệ Thống Thẻ Cào Tự Động</title>
+    <link rel="icon" href="favicon.png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root { --primary: #ff4747; --dark-bg: #0f0f0f; --card-bg: #1a1a1a; --text: #ffffff; --accent: #f39c12; --top-gold: #ffd700; }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Segoe UI', sans-serif; background-color: var(--dark-bg); color: var(--text); margin: 0; padding-bottom: 20px; }
+        :root { --primary: #ff4747; --dark: #000; --card: #151515; --danger: #ff3838; }
+        body { font-family: 'Arial', sans-serif; background: var(--dark); color: #fff; margin: 0; padding-bottom: 30px; }
+        header { background: #111; padding: 10px 15px; border-bottom: 2px solid var(--primary); display: flex; align-items: center; sticky: top; z-index: 100; }
+        .logo img { height: 30px; margin-right: 20px; }
+        nav a { color: #fff; text-decoration: none; font-weight: bold; font-size: 13px; margin-right: 15px; text-transform: uppercase; }
+        .container { max-width: 500px; margin: 0 auto; padding: 10px; }
+        .banner { width: 100%; border-radius: 10px; margin-bottom: 15px; border: 1px solid #333; }
         
-        /* Header */
-        header { background: #000; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 1000; }
-        .logo-area { display: flex; align-items: center; gap: 8px; text-decoration: none; color: white; }
-        .logo-area img { height: 30px; }
-        .user-info { display: flex; align-items: center; gap: 10px; background: #222; padding: 5px 12px; border-radius: 20px; border: 1px solid #333; cursor: pointer; }
-        
-        .container { width: 100%; max-width: 500px; margin: 0 auto; padding: 10px; }
-        .banner { width: 100%; border-radius: 8px; margin-bottom: 10px; }
+        /* Form Nạp Thẻ */
+        .box { background: var(--card); border-radius: 12px; border: 1px solid #222; overflow: hidden; margin-bottom: 20px; }
+        .box-h { background: linear-gradient(90deg, #ff4e50, #f9d423); padding: 12px; text-align: center; color: #000; font-weight: bold; }
+        .alert { background: rgba(255, 56, 56, 0.15); border: 1px solid var(--danger); color: var(--danger); padding: 12px; margin: 15px; border-radius: 8px; font-size: 12px; }
+        .form-content { padding: 0 15px 15px; }
+        label { display: block; font-size: 12px; color: #888; margin: 10px 0 5px; }
+        select, input { width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 6px; }
+        .btn-send { width: 100%; background: var(--primary); color: #fff; border: none; padding: 15px; border-radius: 6px; font-weight: bold; margin-top: 15px; cursor: pointer; }
 
-        /* Tabs & Content */
-        .main-box { background: var(--card-bg); border-radius: 12px; border: 1px solid #333; overflow: hidden; margin-bottom: 15px; }
-        .tabs { display: flex; border-bottom: 1px solid #333; }
-        .tab { flex: 1; padding: 15px; text-align: center; font-weight: bold; font-size: 13px; cursor: pointer; color: #777; }
-        .tab.active { color: var(--primary); border-bottom: 2px solid var(--primary); background: #222; }
-        .content-section { display: none; padding: 20px; }
-        .content-section.active { display: block; }
-
-        /* Form */
-        .input-group { margin-bottom: 12px; position: relative; }
-        select, input { width: 100%; padding: 14px; background: #111; border: 1px solid #444; color: white; border-radius: 8px; font-size: 15px; outline: none; }
-        .required-mark { position: absolute; right: 15px; top: 15px; color: var(--primary); }
-        .price-info { background: #252525; padding: 12px; border-radius: 8px; margin: 10px 0; border-left: 4px solid #2ecc71; font-size: 14px; }
-        .btn-submit { width: 100%; background: linear-gradient(45deg, #ff4747, #ff8181); color: white; border: none; padding: 16px; border-radius: 8px; font-weight: 800; font-size: 16px; cursor: pointer; }
-
-        /* Top Nạp */
-        .top-item { display: flex; align-items: center; padding: 12px; background: #222; margin-bottom: 8px; border-radius: 8px; border: 1px solid #333; }
-        .top-rank { width: 35px; font-weight: 900; font-size: 18px; font-style: italic; color: var(--accent); }
-        .top-name { flex: 1; font-weight: bold; color: #eee; }
-        .top-amount { color: #2ecc71; font-weight: bold; font-size: 14px; }
-        .rank-1 { border: 1px solid var(--top-gold); background: linear-gradient(90deg, #2c2401, #222); }
-
-        /* User Dropdown */
-        .dropdown { position: absolute; right: 15px; top: 60px; background: #222; width: 220px; border-radius: 10px; display: none; border: 1px solid #444; z-index: 1001; }
-        .dropdown.active { display: block; }
-        .dropdown a { display: flex; align-items: center; gap: 10px; padding: 12px 15px; color: #ccc; text-decoration: none; border-bottom: 1px solid #333; font-size: 14px; }
-
-        /* Modal */
-        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center; z-index: 2000; padding: 20px; }
-        .modal.active { display: flex; }
-        .modal-body { background: white; color: #333; width: 100%; max-width: 400px; padding: 25px; border-radius: 15px; text-align: center; }
+        /* Danh mục shop */
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .item { background: var(--card); padding: 15px; border-radius: 10px; text-align: center; border: 1px solid #333; text-decoration: none; color: #fff; transition: 0.2s; }
+        .item:active { transform: scale(0.95); border-color: var(--primary); }
+        .item b { display: block; color: #f39c12; }
+        .item small { font-size: 10px; color: #2ecc71; }
     </style>
 </head>
 <body>
-
 <header>
-    <a href="#" class="logo-area">
-        <img src="1000018152.png" alt="NetCard">
-        <span style="font-weight: 900;">NETCARD.VN</span>
-    </a>
-    <div class="user-info" onclick="document.getElementById('userDrop').classList.toggle('active')">
-        <i class="fas fa-user-circle" style="color:var(--accent)"></i>
-        <span style="font-size: 13px; font-weight: bold;">Dzso1vnday</span>
-    </div>
+    <div class="logo"><img src="logo.png"></div>
+    <nav>
+        <a href="/">Trang Chủ</a>
+        <a href="/nap-tien">Nạp Tiền</a>
+        <a href="/lich-su">Lịch Sử</a>
+    </nav>
 </header>
 
-<div class="dropdown" id="userDrop">
-    <div style="padding: 10px 15px; border-bottom: 1px solid #333;"><b style="color:#2ecc71">Số dư: 0 VNĐ</b></div>
-    <a href="#"><i class="fas fa-wallet" style="color:#e74c3c"></i> Nạp Tiền</a>
-    <a href="#"><i class="fas fa-history" style="color:#3498db"></i> Lịch sử nạp</a>
-    <a href="javascript:void(0)" onclick="location.reload()" style="color:#ff7675"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
-</div>
-
 <div class="container">
-    <img src="1000018154.png" class="banner" alt="Banner">
+    <img src="banner.png" class="banner">
 
-    <div class="main-box">
-        <div class="tabs">
-            <div class="tab active" onclick="switchTab(0)">NẠP TIỀN</div>
-            <div class="tab" onclick="switchTab(1)">TOP NẠP THÁNG 2</div>
-            <div class="tab" onclick="switchTab(2)">MUA THẺ</div>
+    <div class="box">
+        <div class="box-h">HỆ THỐNG NẠP THẺ</div>
+        <div class="alert">
+            <b>⚠️ CẢNH BÁO:</b> Vui lòng chọn đúng mệnh giá. Sai 3 lần sẽ bị khóa tài khoản 20 phút.
         </div>
-
-        <div id="tab-0" class="content-section active">
-            <div class="input-group">
-                <select id="napType" onchange="updateMệnhGiá('nap')">
-                    <option value="">-- Chọn nhà mạng --</option>
-                    <option value="viettel">Viettel (Thực nhận 100%)</option>
-                    <option value="vinaphone">Vinaphone (Thực nhận 100%)</option>
-                    <option value="mobifone">Mobifone (Thực nhận 100%)</option>
-                    <option value="vietnamobile">Vietnamobile (Thực nhận 100%)</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <select id="napAmount"><option value="">-- Mệnh giá --</option></select>
-            </div>
-            <div class="input-group"><input type="text" placeholder="Nhập số serial"><span class="required-mark">(*)</span></div>
-            <div class="input-group"><input type="text" placeholder="Nhập mã thẻ"><span class="required-mark">(*)</span></div>
-            <button class="btn-submit" onclick="process()">NẠP THẺ NGAY</button>
-        </div>
-
-        <div id="tab-1" class="content-section">
-            <div class="top-item rank-1">
-                <span class="top-rank">#1</span>
-                <span class="top-name">Luffy***Gear5</span>
-                <span class="top-amount">5,200,000đ</span>
-            </div>
-            <div class="top-item">
-                <span class="top-rank">#2</span>
-                <span class="top-name">Dzso1***day</span>
-                <span class="top-amount">3,850,000đ</span>
-            </div>
-            <div class="top-item">
-                <span class="top-rank">#3</span>
-                <span class="top-name">Admin***Net</span>
-                <span class="top-amount">2,100,000đ</span>
-            </div>
-            <div class="top-item">
-                <span class="top-rank">#4</span>
-                <span class="top-name">Game***Thủ</span>
-                <span class="top-amount">950,000đ</span>
-            </div>
-        </div>
-
-        <div id="tab-2" class="content-section">
-            <div class="input-group">
-                <select id="buyType" onchange="updateMệnhGiá('buy')">
-                    <option value="">-- Chọn loại thẻ muốn mua --</option>
-                    <optgroup label="Thẻ Game">
-                        <option value="garena">Garena</option><option value="zing">Zing</option>
-                        <option value="sohacoin">Sohacoin</option><option value="scoin">Scoin</option>
-                        <option value="gosu">Gosu</option><option value="vcoin">Vcoin</option>
-                        <option value="gate">Gate</option><option value="team">TeaM</option>
-                        <option value="funcard">FunCard</option><option value="oncash">OnCash</option>
-                        <option value="bit">Bit</option><option value="anpay">AnPay</option>
-                        <option value="kul">Kul</option><option value="vega">Vega</option>
-                    </optgroup>
-                    <optgroup label="Thẻ Điện Thoại">
-                        <option value="viettel">Viettel</option><option value="vinaphone">Vinaphone</option>
-                        <option value="mobifone">Mobifone</option><option value="vietnamobile">Vietnamobile</option>
-                    </optgroup>
-                    <optgroup label="Khác">
-                        <option value="kplus">Thẻ K+</option><option value="avg">Thẻ AVG</option>
-                    </optgroup>
-                </select>
-            </div>
-            <div class="input-group">
-                <select id="buyAmount" onchange="calcBuy()"><option value="">-- Chọn mệnh giá --</option></select>
-            </div>
-            <div id="buyInfo" class="price-info" style="display:none;">
-                Thành tiền: <b id="buyFinal" style="color:#2ecc71">0đ</b>
-            </div>
-            <button class="btn-submit" style="background:var(--accent)" onclick="process()">THANH TOÁN</button>
-        </div>
+        <form action="/callback" method="POST" class="form-content">
+            <label>LOẠI THẺ</label>
+            <select name="card_type"><option>Viettel</option><option>Garena</option><option>Zing</option></select>
+            <label>MỆNH GIÁ</label>
+            <select name="amount"><option value="10000">10.000đ</option><option value="50000">50.000đ</option></select>
+            <label>SERI</label>
+            <input type="text" name="serial" required>
+            <label>MÃ THẺ</label>
+            <input type="text" name="pin" required>
+            <button class="btn-send">NẠP THẺ NGAY</button>
+        </form>
     </div>
-</div>
 
-<div class="modal" id="welcomeModal">
-    <div class="modal-body">
-        <h2 style="color:var(--primary)">NetCard Khai Trương</h2>
-        <p>💥 <b>Giảm giá</b> toàn bộ danh mục thẻ.</p>
-        <p>❌ Nói không với <b>lừa đảo</b>.</p>
-        <button class="btn-submit" onclick="document.getElementById('welcomeModal').classList.remove('active')">BẮT ĐẦU NGAY</button>
-    </div>
+    <h3 style="color:#f39c12; font-size: 14px;">🛒 MUA THẺ CHIẾT KHẤU CAO</h3>
+    <div class="grid" id="shopGrid"></div>
 </div>
 
 <script>
-    const data = {
-        viettel: { ck: 0.02, val: [10000, 20000, 30000, 50000, 100000, 200000, 300000, 500000, 1000000] },
-        vinaphone: { ck: 0.03, val: [10000, 20000, 30000, 50000, 100000, 200000, 300000, 500000] },
-        mobifone: { ck: 0.03, val: [10000, 20000, 30000, 50000, 100000, 200000, 300000, 500000] },
-        vietnamobile: { ck: 0.03, val: [10000, 20000, 30000, 50000, 100000, 200000, 300000, 500000] },
-        garena: { ck: 0.04, val: [5000, 10000, 20000, 50000, 100000, 200000, 500000] },
-        zing: { ck: 0.03, val: [10000, 20000, 50000, 100000, 200000, 500000, 1000000] },
-        sohacoin: { ck: 0.05, val: [10000, 20000, 30000, 50000, 100000, 200000, 300000, 500000, 1000000, 2000000, 5000000] },
-        scoin: { ck: 0.05, val: [10000, 20000, 30000, 50000, 100000, 200000, 300000, 500000, 1000000, 2000000, 5000000] },
-        gosu: { ck: 0.05, val: [10000, 20000, 50000, 100000, 200000, 500000, 1000000, 2000000, 5000000] },
-        oncash: { ck: 0.06, val: [20000, 50000, 100000, 200000, 500000] },
-        bit: { ck: 0.05, val: [50000, 100000, 200000, 300000, 500000, 1000000, 2000000, 5000000] },
-        anpay: { ck: 0.01, val: [10000, 20000, 50000, 100000, 200000, 500000, 1000000, 2000000, 5000000] },
-        kul: { ck: 0.05, val: [10000, 20000, 50000, 100000, 200000, 500000, 1000000, 2000000] },
-        vega: { ck: 0.05, val: [20000, 50000, 100000, 200000, 500000, 1000000, 2000000] },
-        kplus: { ck: 0.04, val: [405000, 810000, 1500000] },
-        avg: { ck: 0.05, val: [100000, 200000, 300000] },
-        appota: { ck: 0.025, val: [10000, 20000, 30000, 50000, 100000, 200000, 300000, 500000, 1000000, 2000000, 3000000, 5000000] },
-        vcoin: { ck: 0.04, val: [10000, 20000, 30000, 50000, 100000, 200000, 300000, 500000, 1000000, 2000000, 3000000, 5000000] },
-        gate: { ck: 0.04, val: [20000, 30000, 50000, 100000, 200000, 500000, 1000000, 2000000, 5000000] },
-        team: { ck: 0.19, val: [50000, 100000, 200000, 500000, 1000000] },
-        funcard: { ck: 0, val: [10000, 20000, 100000, 200000, 500000, 1000000] }
-    };
-
-    function switchTab(idx) {
-        document.querySelectorAll('.tab, .content-section').forEach(el => el.classList.remove('active'));
-        document.querySelectorAll('.tab')[idx].classList.add('active');
-        document.getElementById(`tab-${idx}`).classList.add('active');
-    }
-
-    function updateMệnhGiá(mode) {
-        const type = document.getElementById(mode === 'nap' ? 'napType' : 'buyType').value;
-        const select = document.getElementById(mode === 'nap' ? 'napAmount' : 'buyAmount');
-        select.innerHTML = '<option value="">-- Mệnh giá --</option>';
-        if(data[type]) {
-            data[type].val.forEach(v => {
-                let opt = document.createElement("option");
-                opt.value = v; opt.text = v.toLocaleString() + "đ";
-                select.add(opt);
-            });
-        }
-    }
-
-    function calcBuy() {
-        const type = document.getElementById('buyType').value;
-        const val = document.getElementById('buyAmount').value;
-        if(type && val) {
-            const final = val * (1 - data[type].ck);
-            document.getElementById('buyFinal').innerText = Math.round(final).toLocaleString() + " VNĐ";
-            document.getElementById('buyInfo').style.display = 'block';
-        }
-    }
-
-    function process() {
-        alert("Hệ thống đang xử lý, vui lòng chờ 5-30s!");
-    }
-
-    window.onload = () => document.getElementById('welcomeModal').classList.add('active');
-</script>
-</body>
-</html>
+    const cards = [
+        {n: 'Viettel', ck: '2%', l: 'viettel'}, {n: 'Garena', ck: '4%', l: 'garena'},
+        {n: 'Zing', ck: '3%', l: 'zing'}, {n: 'Mobi/Vina', ck: '3%', l: 'vinaphone'},
+        {n: 'Sohacoin', ck: '5%', l: 'sohacoin'}, {n: 'Scoin', ck: '5%', l: 'scoin'},
+        {n: 'Gosu', ck: '5%', l: 'gosu'}, {n: 'Vcoin', ck: '4%', l: 'vcoin'},
+        {n: 'Gate', ck: '4%', l: 'gate'}, {n: 'TeaM', ck: '19%', l: 'team'},
+        {n: 'FunCard', ck: '0%', l: 'funcard'}, {n: 'Appota', ck: '2
