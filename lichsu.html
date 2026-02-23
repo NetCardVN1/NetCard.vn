@@ -3,53 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lịch sử giao dịch - NetCard.vn</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>Mua thẻ Viettel - NetCard.vn</title>
     <style>
-        :root { --primary: #ff4747; --dark-bg: #0b0b0b; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--dark-bg); color: #fff; margin: 0; }
-        header { background: #000; padding: 12px 15px; border-bottom: 2px solid var(--primary); display: flex; align-items: center; }
-        .container { width: 100%; max-width: 500px; margin: 0 auto; padding: 15px; }
-        .history-card { background: #151515; border-radius: 10px; border: 1px solid #333; overflow: hidden; }
-        table { width: 100%; border-collapse: collapse; font-size: 13px; }
-        th { background: #222; color: #f39c12; padding: 12px; text-align: left; }
-        td { padding: 12px; border-bottom: 1px solid #222; }
-        .status-success { color: #2ecc71; font-weight: bold; }
-        .status-error { color: #e74c3c; font-weight: bold; }
-        .badge { background: #333; padding: 2px 6px; border-radius: 4px; font-family: monospace; }
+        body { background: #000; color: #fff; font-family: sans-serif; }
+        .container { max-width: 500px; margin: 20px auto; padding: 15px; }
+        .card { background: #151515; padding: 20px; border-radius: 12px; border: 1px solid #ff4747; }
+        select, input, button { width: 100%; padding: 15px; margin-top: 10px; border-radius: 8px; border: none; }
+        select { background: #222; color: #fff; }
+        .price-box { margin-top: 20px; text-align: center; border: 1px dashed #444; padding: 15px; }
+        #price { font-size: 24px; color: #2ecc71; font-weight: bold; }
+        button { background: #ff4747; color: #fff; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
-<header>
-    <div class="logo"><img src="logo.png" height="28"></div>
-    <nav style="margin-left: auto;"><a href="/" style="color:#fff; text-decoration:none;">TRANG CHỦ</a></nav>
-</header>
 <div class="container">
-    <h3 style="color:var(--primary);"><i class="fa fa-history"></i> LỊCH SỬ MUA THẺ</h3>
-    <div class="history-card">
-        <table>
-            <thead>
-                <tr>
-                    <th>Loại/Mệnh giá</th>
-                    <th>Thông tin</th>
-                    <th>Trạng thái</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Viettel<br><b>50.000đ</b></td>
-                    <td>S: <span class="badge">1000567xxx</span><br>P: <span class="badge">456789xxx</span></td>
-                    <td class="status-success">Thành công</td>
-                </tr>
-                <tr>
-                    <td>Garena<br><b>20.000đ</b></td>
-                    <td>S: <span class="badge">2000888xxx</span><br>P: <span class="badge">********</span></td>
-                    <td class="status-error">Thẻ sai</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="card">
+        <h2 style="color:#f39c12; text-align: center;">MUA THẺ VIETTEL (CK 2%)</h2>
+        <label>Chọn mệnh giá:</label>
+        <select id="mg" onchange="update()">
+            <option value="10000">10k (9.800đ)</option>
+            <option value="20000">20k (19.600đ)</option>
+            <option value="30000">30k (29.550đ)</option>
+            <option value="50000">50k (49.000đ)</option>
+            <option value="100000">100k (98.000đ)</option>
+            <option value="200000">200k (196.000đ)</option>
+            <option value="300000">300k (294.000đ)</option>
+            <option value="500000">500k (490.000đ)</option>
+            <option value="1000000">1tr (985.000đ)</option>
+        </select>
+        <div class="price-box">
+            <small>CẦN THANH TOÁN:</small><br>
+            <span id="price">9.800 VNĐ</span>
+        </div>
+        <button onclick="location.href='/callback'">XÁC NHẬN MUA</button>
+        <a href="/" style="display:block; text-align:center; color:#666; margin-top:10px;">Quay lại</a>
     </div>
 </div>
+<script>
+    const data = {10000:9800, 20000:19600, 30000:29550, 50000:49000, 100000:98000, 200000:196000, 300000:294000, 500000:490000, 1000000:985000};
+    function update() {
+        document.getElementById('price').innerText = data[document.getElementById('mg').value].toLocaleString() + " VNĐ";
+    }
+</script>
 </body>
 </html>
-
