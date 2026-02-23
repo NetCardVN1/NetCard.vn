@@ -4,271 +4,215 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NetCard.vn - Uy tín vàng, mua đa dạng</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root {
-            --primary: #e74c3c;
-            --bg: #0f0f0f;
-            --card: #1a1a1a;
-            --text: #ffffff;
-            --yellow: #ffc107;
-            --green: #2ecc71;
-            --blue: #3498db;
-        }
+        :root { --primary: #ff4747; --dark-bg: #121212; --card-bg: #1e1e1e; --text: #ffffff; --accent: #f39c12; }
+        body { font-family: 'Roboto', sans-serif; background-color: var(--dark-bg); color: var(--text); margin: 0; overflow-x: hidden; }
+        
+        /* Header */
+        header { background: #111; padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); sticky; top: 0; z-index: 100; }
+        .logo-area { display: flex; align-items: center; gap: 10px; text-decoration: none; color: white; }
+        .logo-area img { height: 35px; }
+        .btn-login-trigger { background: var(--accent); color: white; border: none; padding: 8px 20px; border-radius: 4px; font-weight: bold; cursor: pointer; }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            margin: 0;
-            line-height: 1.6;
-        }
+        /* User Menu */
+        #userProfileMenu { display: none; position: relative; }
+        .user-btn { background: var(--accent); border: none; color: white; padding: 8px 15px; border-radius: 4px; cursor: pointer; }
+        .dropdown-menu { position: absolute; right: 0; top: 45px; background: #2c2f33; width: 220px; border-radius: 8px; display: none; padding: 10px 0; box-shadow: 0 5px 15px rgba(0,0,0,0.5); z-index: 1000; }
+        .dropdown-menu.active { display: block; }
+        .menu-item { padding: 12px 20px; display: flex; align-items: center; gap: 15px; color: #ccc; text-decoration: none; border-bottom: 1px solid #3e4146; }
+        .menu-item:hover { background: #3e4146; color: white; }
 
-        /* --- UI Layout --- */
-        header {
-            background: var(--card);
-            padding: 15px 5%;
-            border-bottom: 2px solid var(--primary);
-            text-align: center;
-        }
+        /* Main Container */
+        .container { max-width: 1100px; margin: 20px auto; padding: 0 15px; }
+        .nạp-the-box { background: var(--card-bg); border-radius: 8px; overflow: hidden; margin-bottom: 25px; border: 1px solid #333; }
+        .tab-header { display: flex; background: #222; }
+        .tab { padding: 15px 25px; cursor: pointer; font-weight: bold; color: #888; text-transform: uppercase; }
+        .tab.active { background: #333; color: var(--primary); border-bottom: 3px solid var(--primary); }
+        
+        /* Form Nạp Thẻ */
+        .form-body { padding: 25px; }
+        .input-group { margin-bottom: 15px; position: relative; }
+        select, input { width: 100%; padding: 14px; background: #111; border: 1px solid #333; color: white; border-radius: 4px; box-sizing: border-box; font-size: 15px; }
+        .required { position: absolute; right: 15px; top: 14px; color: red; }
+        .price-info { background: #252525; padding: 10px; border-radius: 4px; margin-bottom: 15px; border-left: 4px solid var(--accent); font-size: 14px; }
+        .btn-nap { width: 100%; background: linear-gradient(to right, #ff4b2b, #ff416c); color: white; border: none; padding: 16px; font-weight: bold; cursor: pointer; border-radius: 4px; font-size: 16px; transition: 0.3s; }
+        .btn-nap:hover { opacity: 0.9; transform: translateY(-2px); }
 
-        .logo { font-size: 28px; font-weight: 800; color: var(--primary); text-decoration: none; letter-spacing: 2px; }
-
-        .container { max-width: 1200px; margin: 20px auto; padding: 0 15px; }
-
-        .announcement {
-            background: linear-gradient(135deg, #2c3e50, #000);
-            border: 1px solid #333;
-            border-left: 5px solid var(--primary);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-        }
-
-        .main-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 20px; }
-
-        .box { background: var(--card); padding: 25px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-
-        .box h3 { color: var(--primary); margin-top: 0; border-bottom: 1px solid #333; padding-bottom: 10px; font-size: 18px; }
-
-        /* --- Form --- */
-        .form-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; font-weight: 600; color: #bbb; font-size: 13px; }
-        select, input {
-            width: 100%; padding: 12px; background: #252525; border: 1px solid #444; color: white; border-radius: 6px; outline: none; transition: 0.3s;
-        }
-        select:focus { border-color: var(--primary); }
-
-        .btn-buy {
-            width: 100%; background: var(--primary); color: white; border: none; padding: 15px;
-            font-weight: bold; border-radius: 6px; cursor: pointer; text-transform: uppercase; font-size: 16px;
-        }
-
-        /* --- Table --- */
-        .scroll-table { overflow-x: auto; margin-top: 10px; }
-        table { width: 100%; border-collapse: collapse; font-size: 13px; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #333; }
-        th { background: #222; color: var(--yellow); }
-        .discount-tag { color: var(--green); font-weight: bold; }
-
-        /* --- Animations & Modals --- */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center;
-            z-index: 9999; backdrop-filter: blur(8px);
-        }
-
-        .modal-box {
-            background: #222; width: 90%; max-width: 420px; padding: 40px 20px;
-            border-radius: 20px; text-align: center; border: 1px solid #444;
-            transform: translateY(20px); opacity: 0; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
+        /* Modal */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 2000; padding: 20px; }
         .modal-overlay.active { display: flex; }
-        .modal-overlay.active .modal-box { transform: translateY(0); opacity: 1; }
-
-        .modal-icon { font-size: 60px; margin-bottom: 20px; display: block; }
-        .modal-title { font-size: 22px; font-weight: bold; margin-bottom: 12px; display: block; }
-        .modal-desc { color: #888; margin-bottom: 30px; display: block; }
-
-        .modal-btns { display: flex; gap: 15px; justify-content: center; }
-        .btn-m { padding: 12px 30px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; min-width: 120px; }
-        .btn-m-primary { background: var(--primary); color: white; }
-        .btn-m-secondary { background: #444; color: white; }
-        .btn-m-success { background: var(--green); color: white; width: 100%; }
-
-        @media (max-width: 850px) { .main-grid { grid-template-columns: 1fr; } }
+        .modal-box { background: white; width: 100%; max-width: 450px; padding: 25px; border-radius: 12px; color: #333; }
+        
+        /* Welcome Popup */
+        .popup-welcome h2 { color: var(--primary); text-align: center; margin: 0 0 20px 0; }
+        .popup-welcome ul { list-style: none; padding: 0; }
+        .popup-welcome li { margin-bottom: 12px; line-height: 1.5; font-size: 15px; display: flex; gap: 10px; }
+        
+        /* Auth */
+        .auth-box { background: var(--card-bg); padding: 30px; border-radius: 10px; width: 100%; max-width: 400px; color: white; border-top: 4px solid var(--primary); }
     </style>
 </head>
 <body>
 
 <header>
-    <a href="#" class="logo">NETCARD.VN</a>
+    <a href="#" class="logo-area">
+        <img src="icon.png" alt="NetCard">
+        <span style="font-weight: 800; font-size: 20px;">NETCARD.VN</span>
+    </a>
+    <div id="authGuest"><button class="btn-login-trigger" onclick="openAuth('login')">ĐĂNG NHẬP</button></div>
+    <div id="userProfileMenu">
+        <button class="user-btn" onclick="document.getElementById('drop').classList.toggle('active')">
+            <i class="fas fa-user-circle"></i> Dzso1vnday <i class="fas fa-caret-down"></i>
+        </button>
+        <div class="dropdown-menu" id="drop">
+            <div style="padding: 10px 20px; border-bottom: 1px solid #444;"><b style="color:#2ecc71">Dzso1vnday</b><br><small>Số dư: 0 VNĐ</small></div>
+            <a href="#" class="menu-item"><i class="fas fa-credit-card" style="color:#e74c3c"></i> Nạp Tiền</a>
+            <a href="#" class="menu-item"><i class="fas fa-history" style="color:#3498db"></i> Lịch sử nạp tiền</a>
+            <a href="javascript:void(0)" class="menu-item" onclick="showLogoutConfirm()" style="color: #ff7675;"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
+        </div>
+    </div>
 </header>
 
 <div class="container">
-    <div class="announcement">
-        <h2 style="color: var(--yellow); margin-top: 0;">🎊 NetCard tưng bừng khai trương :</h2>
-        <p>💥 <b>Giảm giá</b> tất cả danh mục thẻ cào và túi mù ngẫu nhiên</p>
-        <p>❌ Nói không với <b>gian dối</b> và <b>lừa đảo</b></p>
-        <p>✅ Tỉ lệ nạp thẻ trong vòng 5 - 30 giây</p>
-        <p>💸 100 khách hàng đầu tiên nhận <span style="color: var(--yellow); font-weight: bold;">30 kc</span> khi tạo tài khoản</p>
-        <p style="text-align: center; border-top: 1px solid #444; padding-top: 10px; margin-top: 15px; font-weight: bold;">NetCard.vn - Uy tín vàng, mua đa dạng.</p>
-    </div>
-
-    <div class="main-grid">
-        <div class="box">
-            <h3><i class="fas fa-shopping-cart"></i> MUA THẺ CÀO TỰ ĐỘNG</h3>
-            <div class="form-group">
-                <label>LOẠI THẺ</label>
-                <select id="cardType" onchange="updateAmounts()">
+    <div class="nạp-the-box">
+        <img src="1000018154.png" style="width: 100%;" alt="NetCard Banner">
+        <div class="tab-header">
+            <div class="tab active">Nạp Tiền</div>
+            <div class="tab">Mua Thẻ Chiết Khấu</div>
+        </div>
+        <div class="form-body">
+            <div class="input-group">
+                <select id="cardType" onchange="updateOptions()">
+                    <option value="">-- Chọn loại thẻ --</option>
                     <optgroup label="📱 THẺ ĐIỆN THOẠI">
-                        <option value="Viettel">Viettel (Chiết khấu 2%)</option>
-                        <option value="Vinaphone">Vinaphone (Chiết khấu 3%)</option>
-                        <option value="Mobifone">Mobifone (Chiết khấu 3%)</option>
-                        <option value="Vietnamobile">Vietnamobile (Chiết khấu 3%)</option>
+                        <option value="viettel">Viettel (Chiết khấu 2%)</option>
+                        <option value="vinaphone">Vinaphone (Chiết khấu 3%)</option>
+                        <option value="mobifone">Mobifone (Chiết khấu 3%)</option>
+                        <option value="vietnamobile">Vietnamobile (Chiết khấu 3%)</option>
                     </optgroup>
                     <optgroup label="🎮 THẺ GAME">
-                        <option value="Garena">Garena</option>
-                        <option value="Zing">Zing</option>
-                        <option value="Sohacoin">Sohacoin</option>
-                        <option value="Vcoin">Vcoin</option>
-                        <option value="Appota">Appota</option>
-                        <option value="Gate">Gate</option>
+                        <option value="garena">Garena</option>
+                        <option value="zing">Zing</option>
+                        <option value="sohacoin">Sohacoin (Chiết khấu 5%)</option>
+                        <option value="scoin">Scoin (Chiết khấu 5%)</option>
+                        <option value="gosu">Gosu (Chiết khấu 5%)</option>
+                        <option value="vcoin">Vcoin (Chiết khấu 4%)</option>
+                        <option value="gate">Gate (Chiết khấu 4%)</option>
+                        <option value="appota">Appota (Chiết khấu 2.5%)</option>
+                        <option value="team">TeaM (Chiết khấu 19%)</option>
+                        <option value="funcard">FunCard (Chiết khấu 0%)</option>
+                        <option value="oncash">OnCash (Chiết khấu 6%)</option>
+                        <option value="bit">Bit (Chiết khấu 5%)</option>
+                        <option value="anpay">AnPay (Chiết khấu 1%)</option>
+                        <option value="kul">Kul (Chiết khấu 5%)</option>
+                        <option value="vega">Vega (Chiết khấu 5%)</option>
+                        <option value="kplus">K+ (Chiết khấu 4%)</option>
+                        <option value="avg">AVG (Chiết khấu 5%)</option>
                     </optgroup>
                 </select>
             </div>
-            <div class="form-group">
-                <label>MỆNH GIÁ</label>
-                <select id="cardAmount">
-                    </select>
+            <div class="input-group">
+                <select id="cardAmount" onchange="calculatePrice()">
+                    <option value="">-- Mệnh giá thẻ --</option>
+                </select>
             </div>
-            <div class="form-group">
-                <label>SỐ LƯỢNG</label>
-                <input type="number" value="1" min="1">
+            <div id="priceDisplay" class="price-info" style="display:none;">
+                <i class="fas fa-tags"></i> Giá thanh toán: <b id="finalPrice" style="color:var(--accent)">0đ</b>
             </div>
-            <button class="btn-buy" onclick="handlePurchase()">MUA THẺ NGAY</button>
-        </div>
-
-        <div class="box">
-            <h3><i class="fas fa-tags"></i> BẢNG GIÁ CHIẾT KHẤU</h3>
-            <div class="scroll-table">
-                <table>
-                    <thead>
-                        <tr><th>Loại thẻ</th><th>Chiết khấu</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Viettel</td><td class="discount-tag">-2%</td></tr>
-                        <tr><td>Vina/Mobi/VNM</td><td class="discount-tag">-3%</td></tr>
-                        <tr><td>Soha/Scoin/Gosu/Bit</td><td class="discount-tag">-5%</td></tr>
-                        <tr><td>Garena/Vcoin/Gate</td><td class="discount-tag">-4%</td></tr>
-                        <tr><td>TeaM</td><td class="discount-tag">-19%</td></tr>
-                        <tr><td>AnPay</td><td class="discount-tag">-1%</td></tr>
-                    </tbody>
-                </table>
-            </div>
+            <div class="input-group"><input type="text" placeholder="Nhập serial thẻ"><span class="required">(*)</span></div>
+            <div class="input-group"><input type="text" placeholder="Nhập mã thẻ"><span class="required">(*)</span></div>
+            <button class="btn-nap" onclick="showProcessing()">NẠP THẺ NGAY</button>
         </div>
     </div>
 </div>
 
-<div class="modal-overlay" id="overlay">
-    <div class="modal-box" id="modalBox">
-        <div id="modalBody"></div>
-    </div>
+<div class="modal-overlay" id="modalOverlay">
+    <div id="modalContainer"></div>
 </div>
 
 <script>
-    // Dữ liệu mệnh giá thẻ
     const data = {
-        'Viettel': ['10.000đ', '20.000đ', '30.000đ', '50.000đ', '100.000đ', '200.000đ', '300.000đ', '500.000đ', '1.000.000đ'],
-        'Vinaphone': ['10.000đ', '20.000đ', '30.000đ', '50.000đ', '100.000đ', '200.000đ', '300.000đ', '500.000đ'],
-        'Mobifone': ['10.000đ', '20.000đ', '30.000đ', '50.000đ', '100.000đ', '200.000đ', '300.000đ', '500.000đ'],
-        'Garena': ['5.000đ', '10.000đ', '20.000đ', '50.000đ', '100.000đ', '200.000đ', '500.000đ'],
-        'Sohacoin': ['10.000đ', '50.000đ', '100.000đ', '500.000đ', '1.000.000đ', '5.000.000đ'],
-        'Zing': ['10.000đ', '50.000đ', '100.000đ', '200.000đ', '500.000đ', '1.000.000đ'],
-        // ... Thêm các thẻ khác vào đây tương tự
+        viettel: { ck: 0.02, val: [10000, 20000, 30000, 50000, 100000, 200000, 300000, 500000, 1000000] },
+        vinaphone: { ck: 0.03, val: [10000, 20000, 30000, 50000, 100000, 200000, 300000, 500000] },
+        mobifone: { ck: 0.03, val: [10000, 20000, 30000, 50000, 100000, 200000, 300000, 500000] },
+        vietnamobile: { ck: 0.03, val: [10000, 20000, 50000, 100000, 200000, 300000, 500000] },
+        garena: { ck: 0.04, val: [5000, 10000, 20000, 50000, 100000, 200000, 500000] },
+        zing: { ck: 0.03, val: [10000, 20000, 50000, 100000, 200000, 500000, 1000000] },
+        sohacoin: { ck: 0.05, val: [10000, 20000, 30000, 50000, 100000, 200000, 300000, 500000, 1000000, 2000000, 5000000] },
+        scoin: { ck: 0.05, val: [10000, 20000, 30000, 50000, 100000, 200000, 300000, 500000, 1000000, 2000000, 5000000] },
+        gosu: { ck: 0.05, val: [10000, 20000, 50000, 100000, 200000, 500000, 1000000, 2000000, 5000000] },
+        vcoin: { ck: 0.04, val: [10000, 20000, 30000, 50000, 100000, 200000, 300000, 500000, 1000000, 2000000, 3000000, 5000000] },
+        gate: { ck: 0.04, val: [20000, 30000, 50000, 100000, 200000, 500000, 1000000, 2000000, 5000000] },
+        appota: { ck: 0.025, val: [10000, 20000, 30000, 50000, 100000, 200000, 300000, 500000, 1000000, 2000000, 3000000, 5000000] },
+        team: { ck: 0.19, val: [50000, 100000, 200000, 500000, 1000000] },
+        funcard: { ck: 0, val: [10000, 20000, 100000, 200000, 500000, 1000000] },
+        oncash: { ck: 0.06, val: [20000, 50000, 100000, 200000, 500000] },
+        bit: { ck: 0.05, val: [50000, 100000, 200000, 500000, 1000000, 2000000, 5000000] },
+        anpay: { ck: 0.01, val: [10000, 20000, 50000, 100000, 200000, 500000, 1000000, 2000000, 5000000] },
+        kul: { ck: 0.05, val: [10000, 20000, 50000, 100000, 200000, 500000, 1000000, 2000000] },
+        vega: { ck: 0.05, val: [20000, 50000, 100000, 200000, 500000, 1000000, 2000000] },
+        kplus: { ck: 0.04, val: [405000, 810000, 1500000] },
+        avg: { ck: 0.05, val: [100000, 200000, 300000] }
     };
 
-    function updateAmounts() {
+    function updateOptions() {
         const type = document.getElementById('cardType').value;
         const amountSelect = document.getElementById('cardAmount');
-        amountSelect.innerHTML = '';
-        const list = data[type] || data['Viettel'];
-        list.forEach(amt => {
-            let option = document.createElement('option');
-            option.value = amt;
-            option.text = amt;
-            amountSelect.appendChild(option);
+        amountSelect.innerHTML = '<option value="">-- Mệnh giá thẻ --</option>';
+        if(!type) return;
+        data[type].val.forEach(v => {
+            let opt = document.createElement("option");
+            opt.value = v; opt.text = v.toLocaleString() + "đ";
+            amountSelect.add(opt);
         });
+        calculatePrice();
     }
 
-    const overlay = document.getElementById('overlay');
-    const modalBody = document.getElementById('modalBody');
-
-    function showModal(content) {
-        modalBody.innerHTML = content;
-        overlay.classList.add('active');
-    }
-
-    function closeModal() {
-        overlay.classList.remove('active');
-    }
-
-    // Luồng xử lý thông báo
-    function handlePurchase() {
+    function calculatePrice() {
         const type = document.getElementById('cardType').value;
-        const amt = document.getElementById('cardAmount').value;
-
-        showModal(`
-            <span class="modal-icon" style="color: var(--yellow);">❗</span>
-            <span class="modal-title">Bạn có chắc mua ${type} mệnh giá ${amt} không?</span>
-            <span class="modal-desc">Vui lòng chọn có hoặc không</span>
-            <div class="modal-btns">
-                <button class="btn-m btn-m-primary" onclick="stepProcessing()">Có</button>
-                <button class="btn-m btn-m-secondary" onclick="closeModal()">Không</button>
-            </div>
-        `);
+        const val = document.getElementById('cardAmount').value;
+        const display = document.getElementById('priceDisplay');
+        if(type && val) {
+            const final = val * (1 - data[type].ck);
+            document.getElementById('finalPrice').innerText = Math.round(final).toLocaleString() + " VNĐ";
+            display.style.display = 'block';
+        } else { display.style.display = 'none'; }
     }
 
-    function stepProcessing() {
-        showModal(`
-            <span class="modal-icon" style="color: var(--blue);">✅</span>
-            <span class="modal-title">Hệ thống đang xử lý</span>
-            <span class="modal-desc">Bạn hãy kiểm tra ở giao dịch nha!</span>
-            <div class="modal-btns">
-                <button class="btn-m btn-m-success" onclick="stepResult()">Ok</button>
-            </div>
-        `);
-    }
+    const overlay = document.getElementById('modalOverlay');
+    const container = document.getElementById('modalContainer');
 
-    function stepResult() {
-        const success = Math.random() > 0.5; // Giả lập ngẫu nhiên
-        if(success) {
-            showModal(`
-                <span class="modal-icon" style="color: var(--green);">✅</span>
-                <span class="modal-title">Thành công</span>
-                <span class="modal-desc">Bạn hãy kiểm tra ở giao dịch nha!</span>
-                <div class="modal-btns">
-                    <button class="btn-m btn-m-success" onclick="closeModal()">Ok</button>
-                </div>
-            `);
+    window.onload = () => {
+        overlay.classList.add('active');
+        container.innerHTML = `
+            <div class="modal-box popup-welcome">
+                <h2>🎊 NetCard Khai Trương</h2>
+                <ul>
+                    <li>💥 <b>Giảm giá</b> tất cả danh mục thẻ cào & túi mù.</li>
+                    <li>❌ Nói không với <b>gian dối</b> và <b>lừa đảo</b>.</li>
+                    <li>✅ Tỉ lệ nạp thẻ trong vòng 5 - 30 giây.</li>
+                    <li>💸 100 khách đầu tiên nhận 30 kc khi tạo tài khoản.</li>
+                </ul>
+                <p style="text-align:center; font-weight:bold; border-top:1px solid #eee; padding-top:15px">NetCard.vn - Uy tín vàng, mua đa dạng.</p>
+                <button class="btn-nap" onclick="overlay.classList.remove('active')">TÔI ĐÃ HIỂU</button>
+            </div>`;
+    };
+
+    function openAuth(type) {
+        overlay.classList.add('active');
+        if(type === 'login') {
+            container.innerHTML = `<div class="auth-box"><h2 style="text-align:center">ĐĂNG NHẬP</h2><div class="input-group"><label>Username hoặc Email</label><input type="text"></div><div class="input-group"><label>Mật khẩu</label><input type="password"></div><button class="btn-nap" onclick="fakeLogin()">ĐĂNG NHẬP</button><p style="text-align:center; font-size:13px; margin-top:15px">Bạn chưa có tài khoản? <span style="color:var(--accent); cursor:pointer" onclick="openAuth('reg')">Đăng ký ngay</span></p></div>`;
         } else {
-            showModal(`
-                <span class="modal-icon" style="color: var(--primary);">❌</span>
-                <span class="modal-title">Thất bại</span>
-                <span class="modal-desc">Mệnh giá không đủ, vui lòng nạp thêm</span>
-                <div class="modal-btns">
-                    <button class="btn-m btn-m-primary" onclick="closeModal()">Ok</button>
-                    <button class="btn-m btn-m-secondary" onclick="closeModal()">Không</button>
-                </div>
-            `);
+            container.innerHTML = `<div class="auth-box"><h2 style="text-align:center">ĐĂNG KÝ</h2><div class="input-group"><label>Username</label><input type="text"></div><div class="input-group"><label>Email</label><input type="email"></div><div class="input-group"><label>Mật khẩu</label><input type="password"></div><div class="input-group"><label>Nhập lại mật khẩu</label><input type="password"></div><button class="btn-nap" onclick="openAuth('login')">ĐĂNG KÝ NGAY</button></div>`;
         }
     }
 
-    // Khởi tạo mệnh giá lần đầu
-    updateAmounts();
+    function fakeLogin() { overlay.classList.remove('active'); document.getElementById('authGuest').style.display = 'none'; document.getElementById('userProfileMenu').style.display = 'block'; }
+    function showLogoutConfirm() { overlay.classList.add('active'); container.innerHTML = `<div class="modal-box" style="text-align:center"><div style="font-size:60px; color:#f39c12; margin-bottom:15px"><i class="far fa-dot-circle"></i></div><h3 style="margin:0">Bạn có chắc không?</h3><p style="color:#666">Bạn sẽ bị đăng xuất khỏi tài khoản khi nhấn Đồng Ý</p><div style="display:flex; gap:10px; justify-content:center"><button style="background:#3498db; color:white; padding:10px 25px; border-radius:5px; border:none; cursor:pointer" onclick="location.reload()">Đồng ý</button><button style="background:#e74c3c; color:white; padding:10px 25px; border-radius:5px; border:none; cursor:pointer" onclick="overlay.classList.remove('active')">Huỷ bỏ</button></div></div>`; }
+    function showProcessing() { overlay.classList.add('active'); container.innerHTML = `<div class="modal-box" style="text-align:center"><div style="font-size:60px; color:#2ecc71; margin-bottom:15px"><i class="far fa-check-circle"></i></div><h3 style="margin:0">Đang xử lý</h3><p style="color:#666">Hệ thống đang kiểm tra thẻ của bạn... 5-30s</p><button class="btn-nap" style="background:#e74c3c" onclick="showError()">OK</button></div>`; }
+    function showError() { container.innerHTML = `<div class="modal-box" style="text-align:center"><div style="font-size:60px; color:#ff7675; margin-bottom:15px"><i class="far fa-times-circle"></i></div><h3 style="margin:0; color:#ff4747">Thất bại!</h3><p style="color:#666">Số dư không đủ, vui lòng nạp thêm</p><button class="btn-nap" style="background:#3498db" onclick="overlay.classList.remove('active')">OK</button></div>`; }
 </script>
-
 </body>
 </html>
-
