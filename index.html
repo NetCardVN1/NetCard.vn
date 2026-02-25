@@ -3,75 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NetCard.vn - Hệ Thống Thẻ Cào Tự Động</title>
+    <title>NetCard.vn - Mua Bán Thẻ Cào</title>
     <link rel="icon" href="favicon.png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root { --primary: #ff4747; --dark: #000; --card: #151515; --danger: #ff3838; }
-        body { font-family: 'Arial', sans-serif; background: var(--dark); color: #fff; margin: 0; padding-bottom: 30px; }
-        header { background: #111; padding: 10px 15px; border-bottom: 2px solid var(--primary); display: flex; align-items: center; sticky: top; z-index: 100; }
-        .logo img { height: 30px; margin-right: 20px; }
-        nav a { color: #fff; text-decoration: none; font-weight: bold; font-size: 13px; margin-right: 15px; text-transform: uppercase; }
+        :root { --primary: #ff4747; --dark: #0b0b0b; --card: #151515; }
+        body { font-family: 'Roboto', sans-serif; background: var(--dark); color: #fff; margin: 0; padding-bottom: 50px; }
+        header { background: #000; padding: 10px 15px; border-bottom: 2px solid var(--primary); display: flex; align-items: center; justify-content: space-between; }
+        .logo img { height: 35px; }
+        nav a { color: #fff; text-decoration: none; font-size: 13px; font-weight: bold; margin-left: 15px; text-transform: uppercase; }
         .container { max-width: 500px; margin: 0 auto; padding: 10px; }
-        .banner { width: 100%; border-radius: 10px; margin-bottom: 15px; border: 1px solid #333; }
+        .banner { width: 100%; border-radius: 8px; margin-bottom: 15px; }
         
-        /* Form Nạp Thẻ */
-        .box { background: var(--card); border-radius: 12px; border: 1px solid #222; overflow: hidden; margin-bottom: 20px; }
-        .box-h { background: linear-gradient(90deg, #ff4e50, #f9d423); padding: 12px; text-align: center; color: #000; font-weight: bold; }
-        .alert { background: rgba(255, 56, 56, 0.15); border: 1px solid var(--danger); color: var(--danger); padding: 12px; margin: 15px; border-radius: 8px; font-size: 12px; }
-        .form-content { padding: 0 15px 15px; }
-        label { display: block; font-size: 12px; color: #888; margin: 10px 0 5px; }
-        select, input { width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 6px; }
+        /* Form Nạp */
+        .box { background: var(--card); border-radius: 12px; border: 1px solid #333; overflow: hidden; margin-bottom: 20px; }
+        .box-h { background: #ff4747; padding: 12px; text-align: center; font-weight: bold; }
+        .alert-red { background: rgba(255, 56, 56, 0.1); border: 1px solid #ff3838; color: #ff3838; padding: 12px; margin: 15px; border-radius: 6px; font-size: 12px; }
+        .form-group { padding: 0 15px 15px; }
+        label { display: block; font-size: 12px; color: #888; margin-top: 10px; }
+        select, input { width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 6px; margin-top: 5px; box-sizing: border-box; }
         .btn-send { width: 100%; background: var(--primary); color: #fff; border: none; padding: 15px; border-radius: 6px; font-weight: bold; margin-top: 15px; cursor: pointer; }
 
-        /* Danh mục shop */
+        /* Shop Grid */
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .item { background: var(--card); padding: 15px; border-radius: 10px; text-align: center; border: 1px solid #333; text-decoration: none; color: #fff; transition: 0.2s; }
-        .item:active { transform: scale(0.95); border-color: var(--primary); }
-        .item b { display: block; color: #f39c12; }
-        .item small { font-size: 10px; color: #2ecc71; }
+        .item { background: var(--card); padding: 15px; border-radius: 10px; text-align: center; border: 1px solid #333; text-decoration: none; color: #fff; }
+        .item b { display: block; color: #f39c12; margin-bottom: 5px; }
+        .item small { color: #2ecc71; font-size: 11px; }
     </style>
 </head>
 <body>
 <header>
-    <div class="logo"><img src="logo.png"></div>
-    <nav>
-        <a href="/">Trang Chủ</a>
-        <a href="/naptien.html">Nạp Tiền</a>
-        <a href="/lichsu.html">Lịch Sử</a>
-    </nav>
+    <div class="logo"><img src="logo.png"></div> <nav><a href="/napthe">Nạp Thẻ</a><a href="/lichsu">Lịch Sử</a></nav>
 </header>
-
 <div class="container">
-    <img src="banner.png" class="banner">
-
-    <div class="box">
-        <div class="box-h">HỆ THỐNG NẠP THẺ</div>
-        <div class="alert">
-            <b>⚠️ CẢNH BÁO:</b> Vui lòng chọn đúng mệnh giá. Sai 3 lần sẽ bị khóa tài khoản 20 phút.
-        </div>
-        <form action="/callback" method="POST" class="form-content">
+    <img src="banner.png" class="banner"> <div class="box">
+        <div class="box-h">NẠP THẺ CÀO TỰ ĐỘNG</div>
+        <div class="alert-red">
+            ⚠️ <b>CẢNH BÁO:</b> Vui lòng chọn đúng mệnh giá. Sai 3 lần sẽ bị khóa tài khoản 20 phút. </div>
+        <form action="/callback" method="POST" class="form-group">
             <label>LOẠI THẺ</label>
             <select name="card_type"><option>Viettel</option><option>Garena</option><option>Zing</option></select>
             <label>MỆNH GIÁ</label>
             <select name="amount"><option value="10000">10.000đ</option><option value="50000">50.000đ</option></select>
-            <label>SERI</label>
-            <input type="text" name="serial" required>
-            <label>MÃ THẺ</label>
-            <input type="text" name="pin" required>
+            <input type="text" name="serial" placeholder="Nhập Serial" required>
+            <input type="text" name="pin" placeholder="Nhập Mã Thẻ" required>
             <button class="btn-send">NẠP THẺ NGAY</button>
         </form>
     </div>
-
-    <h3 style="color:#f39c12; font-size: 14px;">🛒 MUA THẺ CHIẾT KHẤU CAO</h3>
-    <div class="grid" id="shopGrid"></div>
+    <div class="grid" id="shop"></div>
 </div>
-
 <script>
-    const cards = [
-        {n: 'Viettel', ck: '2%', l: 'viettel'}, {n: 'Garena', ck: '4%', l: 'garena'},
-        {n: 'Zing', ck: '3%', l: 'zing'}, {n: 'Mobi/Vina', ck: '3%', l: 'vinaphone'},
-        {n: 'Sohacoin', ck: '5%', l: 'sohacoin'}, {n: 'Scoin', ck: '5%', l: 'scoin'},
-        {n: 'Gosu', ck: '5%', l: 'gosu'}, {n: 'Vcoin', ck: '4%', l: 'vcoin'},
-        {n: 'Gate', ck: '4%', l: 'gate'}, {n: 'TeaM', ck: '19%', l: 'team'},
-        {n: 'FunCard', ck: '0%', l: 'funcard'}, {n: 'Appota', ck: '2
+    const list = [
+        {n:'Viettel', ck:'2%', l:'viettel'}, {n:'Garena', ck:'4%', l:'garena'},
+        {n:'Zing', ck:'3%', l:'zing'}, {n:'Vcoin', ck:'4%', l:'vcoin'}
+    ];
+    document.getElementById('shop').innerHTML = list.map(i => `
+        <a href="/${i.l}" class="item"><b>${i.n}</b><small>CK ${i.ck}</small></a>
+    `).join('');
+</script>
+</body>
+</html>
