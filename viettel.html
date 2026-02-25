@@ -3,65 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mua thẻ Viettel - NetCard.vn</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>Mua Thẻ Viettel - NetCard.vn</title>
     <style>
-        :root { --primary: #ff4747; --dark-bg: #000; --card-bg: #151515; --accent: #f39c12; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--dark-bg); color: #fff; margin: 0; }
-        header { background: #111; padding: 12px 15px; border-bottom: 2px solid var(--primary); display: flex; align-items: center; }
-        .logo img { height: 28px; margin-right: 20px; }
-        nav a { color: #fff; text-decoration: none; font-size: 13px; font-weight: bold; margin-right: 15px; }
-        .container { width: 100%; max-width: 500px; margin: 0 auto; padding: 15px; }
-        .buy-box { background: var(--card-bg); border-radius: 12px; border: 1px solid #333; padding: 20px; }
-        .card-info { text-align: center; margin-bottom: 20px; }
-        .card-info h2 { color: var(--accent); margin: 0; }
-        label { display: block; font-size: 14px; margin-bottom: 8px; color: #ccc; }
-        select, input { width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: white; border-radius: 8px; margin-bottom: 15px; font-size: 16px; }
-        .price-display { background: #000; padding: 15px; border-radius: 8px; text-align: center; margin-bottom: 20px; border: 1px dashed var(--primary); }
-        #finalPrice { font-size: 22px; color: #2ecc71; font-weight: 900; }
-        .btn-confirm { width: 100%; background: var(--primary); color: #fff; border: none; padding: 15px; border-radius: 8px; font-weight: 900; cursor: pointer; text-transform: uppercase; }
+        body { background: #000; color: #fff; font-family: sans-serif; text-align: center; }
+        .box { max-width: 400px; margin: 50px auto; background: #151515; padding: 20px; border-radius: 15px; border: 1px solid #ff4747; }
+        select { width: 100%; padding: 15px; background: #000; color: #fff; border: 1px solid #333; border-radius: 8px; font-size: 16px; }
+        .price { font-size: 28px; color: #2ecc71; font-weight: bold; margin: 20px 0; }
+        button { width: 100%; padding: 15px; background: #ff4747; color: #fff; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
-<header>
-    <div class="logo"><img src="logo.png"></div>
-    <nav><a href="/"><i class="fa fa-home"></i> TRANG CHỦ</a></nav>
-</header>
-<div class="container">
-    <div class="buy-box">
-        <div class="card-info">
-            <h2>THẺ VIETTEL</h2>
-            <p>Chiết khấu: <b style="color: #2ecc71;">2.0%</b></p>
-        </div>
-        <label>Chọn mệnh giá:</label>
-        <select id="menhGia" onchange="tinhTien()">
-            <option value="10000">10.000đ (Giá: 9.800đ)</option>
-            <option value="20000">20.000đ (Giá: 19.600đ)</option>
-            <option value="30000">30.000đ (Giá: 29.550đ)</option>
-            <option value="50000">50.000đ (Giá: 49.000đ)</option>
-            <option value="100000">100.000đ (Giá: 98.000đ)</option>
-            <option value="200000">200.000đ (Giá: 196.000đ)</option>
-            <option value="300000">300.000đ (Giá: 294.000đ)</option>
-            <option value="500000">500.000đ (Giá: 490.000đ)</option>
-            <option value="1000000">1.000.000đ (Giá: 985.000đ)</option>
+    <div class="box">
+        <h3>MUA THẺ VIETTEL</h3>
+        <p>Chiết khấu 2%</p>
+        <select id="mg" onchange="calc()">
+            <option value="10000">10k</option>
+            <option value="20000">20k</option>
+            <option value="30000">30k</option>
+            <option value="50000">50k</option>
+            <option value="100000">100k</option>
+            <option value="200000">200k</option>
+            <option value="300000">300k</option>
+            <option value="500000">500k</option>
+            <option value="1000000">1tr</option>
         </select>
-        <label>Số lượng:</label>
-        <input type="number" id="soLuong" value="1" min="1" oninput="tinhTien()">
-        <div class="price-display">
-            <div style="font-size: 11px; color: #888;">THANH TOÁN:</div>
-            <span id="finalPrice">9.800 VNĐ</span>
-        </div>
-        <button class="btn-confirm" onclick="alert('Đang kết nối callback.php...')">XÁC NHẬN MUA</button>
+        <div class="price" id="total">9.800 VNĐ</div>
+        <button onclick="alert('Đang chuyển hướng thanh toán...')">MUA NGAY</button>
+        <br><br><a href="/" style="color:#666; text-decoration:none;">Quay lại</a>
     </div>
-</div>
-<script>
-    const gia = { 10000:9800, 20000:19600, 30000:29550, 50000:49000, 100000:98000, 200000:196000, 300000:294000, 500000:490000, 1000000:985000 };
-    function tinhTien() {
-        const mg = document.getElementById('menhGia').value;
-        const sl = document.getElementById('soLuong').value;
-        document.getElementById('finalPrice').innerText = (gia[mg] * sl).toLocaleString() + " VNĐ";
-    }
-</script>
+    <script>
+        const prices = {10000:9800, 20000:19600, 30000:29550, 50000:49000, 100000:98000, 200000:196000, 300000:294000, 500000:490000, 1000000:985000};
+        function calc() { document.getElementById('total').innerText = prices[document.getElementById('mg').value].toLocaleString() + " VNĐ"; }
+    </script>
 </body>
 </html>
-
