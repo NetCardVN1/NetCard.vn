@@ -1,4 +1,3 @@
-<--- Thẳng Nào Ăn Cắp Code, Thẳng Đó Gay -->
 {
   "rewrites": [
     { "source": "/napthe", "destination": "/naptien.html" },
