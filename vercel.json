@@ -1,0 +1,10 @@
+<--- Thẳng Nào Ăn Cắp Code, Thẳng Đó Gay -->
+{
+  "rewrites": [
+    { "source": "/napthe", "destination": "/naptien.html" },
+    { "source": "/lichsu", "destination": "/lichsu.html" },
+    { "source": "/callback", "destination": "/api/callback.php" },
+    { "source": "/viettel", "destination": "/viettel.html" },
+    { "source": "/garena", "destination": "/garena.html" }
+  ]
+}
