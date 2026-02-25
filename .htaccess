@@ -1,16 +1,13 @@
+Options -MultiViews
 RewriteEngine On
+RewriteBase /
 
-# Clean URL cho trang chủ, nạp tiền, lịch sử
-RewriteRule ^index$ index.html [NC,L]
-RewriteRule ^naptien$ naptien.html [NC,L]
-RewriteRule ^lich-su$ lich-su.html [NC,L]
-
-# Clean URL cho các trang mua thẻ game
+# Tự động thêm đuôi .html nếu file tồn tại
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}\.html -f
-RewriteRule ^([^\.]+)$ $1.html [NC,L]
+RewriteRule ^([^/]+)$ $1.html [NC,L]
 
-# Clean URL cho callback xử lý PHP
+# Tự động thêm đuôi .php nếu file tồn tại
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}\.php -f
-RewriteRule ^([^\.]+)$ $1.php [NC,L]
+RewriteRule ^([^/]+)$ $1.php [NC,L]
