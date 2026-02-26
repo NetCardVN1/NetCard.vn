@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập - NetCard.vn</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body { background: #0b0b0b; color: #fff; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        .auth-box { background: #151515; padding: 30px; border-radius: 15px; border: 1px solid #ff4747; width: 340px; text-align: center; box-shadow: 0 0 20px rgba(255,71,71,0.2); }
+        input { width: 100%; padding: 14px; margin: 10px 0; background: #000; border: 1px solid #333; color: #fff; border-radius: 8px; box-sizing: border-box; outline: none; }
+        input:focus { border-color: #ff4747; }
+        button { width: 100%; padding: 14px; background: #ff4747; border: none; color: #fff; font-weight: bold; border-radius: 8px; cursor: pointer; margin-top: 10px; transition: 0.3s; }
+        button:hover { background: #e03636; }
+        .toggle { margin-top: 20px; font-size: 13px; color: #888; }
+        .toggle a { color: #ff4747; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="auth-box" id="loginForm">
+        <img src="assets/logo.png" style="height: 45px; margin-bottom: 20px;" onerror="this.src='https://via.placeholder.com/150x50?text=LOGO'">
+        <h2 style="color:#ff4747; margin: 0 0 20px;">ĐĂNG NHẬP</h2>
+        <input type="text" id="user" placeholder="Tên đăng nhập (Ví dụ: ABC123)">
+        <input type="password" id="pass" placeholder="Mật khẩu">
+        <button onclick="processLogin()">ĐĂNG NHẬP NGAY</button>
+        <div class="toggle">Bạn chưa có tài khoản? <a href="#" onclick="toggleAuth()">Tạo ngay!</a></div>
+    </div>
+
+    <div class="auth-box" id="regForm" style="display:none">
+        <h2 style="color:#ff8c00; margin: 0 0 20px;">ĐĂNG KÝ</h2>
+        <input type="text" placeholder="Tên tài khoản">
+        <input type="password" placeholder="Mật khẩu">
+        <input type="password" placeholder="Xác nhận mật khẩu">
+        <button onclick="processLogin()">TẠO TÀI KHOẢN</button>
+        <div class="toggle">Đã có tài khoản? <a href="#" onclick="toggleAuth()">Đăng nhập</a></div>
+    </div>
+
+    <script>
+        function toggleAuth() {
+            document.getElementById('loginForm').style.display = document.getElementById('loginForm').style.display === 'none' ? 'block' : 'none';
+            document.getElementById('regForm').style.display = document.getElementById('regForm').style.display === 'none' ? 'block' : 'none';
+        }
+
+        function processLogin() {
+            Swal.fire({ title: "Thành công!", text: "Đăng nhập thành công!", icon: "success", timer: 1500, showConfirmButton: false }).then(() => {
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('userName', 'User_ABC123');
+                window.location.href = 'index.html';
+            });
+        }
+    </script>
+</body>
+</html>
+
