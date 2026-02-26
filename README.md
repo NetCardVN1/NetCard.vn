@@ -1,3 +1,5 @@
+NetCardVN xin chào các bạn 😃
+
 ## ​1. Giới thiệu về NetCardVN 
 
 ​NetCardVN – Hệ thống gạch thẻ & Đổi thẻ cào uy tín số 1 Việt Nam.
