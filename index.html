@@ -3,63 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NetCard.vn - Mua Bán Thẻ Cào</title>
-    <link rel="icon" href="favicon.png">
+    <title>NetCard.vn - Giao Dịch Tự Động</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-        :root { --primary: #ff4747; --dark: #0b0b0b; --card: #151515; }
-        body { font-family: 'Roboto', sans-serif; background: var(--dark); color: #fff; margin: 0; padding-bottom: 50px; }
-        header { background: #000; padding: 10px 15px; border-bottom: 2px solid var(--primary); display: flex; align-items: center; justify-content: space-between; }
-        .logo img { height: 35px; }
-        nav a { color: #fff; text-decoration: none; font-size: 13px; font-weight: bold; margin-left: 15px; text-transform: uppercase; }
-        .container { max-width: 500px; margin: 0 auto; padding: 10px; }
-        .banner { width: 100%; border-radius: 8px; margin-bottom: 15px; }
+        :root { --primary: #ff4747; --dark: #0b0b0b; --card: #151515; --orange: #ff8c00; }
+        body { font-family: 'Roboto', sans-serif; background: var(--dark); color: #fff; margin: 0; }
         
-        /* Form Nạp */
-        .box { background: var(--card); border-radius: 12px; border: 1px solid #333; overflow: hidden; margin-bottom: 20px; }
-        .box-h { background: #ff4747; padding: 12px; text-align: center; font-weight: bold; }
-        .alert-red { background: rgba(255, 56, 56, 0.1); border: 1px solid #ff3838; color: #ff3838; padding: 12px; margin: 15px; border-radius: 6px; font-size: 12px; }
-        .form-group { padding: 0 15px 15px; }
-        label { display: block; font-size: 12px; color: #888; margin-top: 10px; }
-        select, input { width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 6px; margin-top: 5px; box-sizing: border-box; }
-        .btn-send { width: 100%; background: var(--primary); color: #fff; border: none; padding: 15px; border-radius: 6px; font-weight: bold; margin-top: 15px; cursor: pointer; }
+        /* Header mới theo yêu cầu của ní */
+        header { 
+            background: #000; padding: 12px 15px; border-bottom: 2px solid var(--primary);
+            display: flex; align-items: center; position: sticky; top: 0; z-index: 1000;
+        }
+        
+        /* Cụm User bên trái */
+        .header-left { width: 35%; display: flex; align-items: center; gap: 8px; }
+        .avatar { width: 35px; height: 35px; border-radius: 50%; border: 1px solid var(--orange); }
+        .user-meta { display: flex; flex-direction: column; font-size: 11px; }
+        .user-meta b { color: var(--orange); font-size: 13px; }
+        .user-meta span { color: #2ecc71; font-weight: bold; }
 
-        /* Shop Grid */
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .item { background: var(--card); padding: 15px; border-radius: 10px; text-align: center; border: 1px solid #333; text-decoration: none; color: #fff; }
-        .item b { display: block; color: #f39c12; margin-bottom: 5px; }
-        .item small { color: #2ecc71; font-size: 11px; }
+        /* Logo ở giữa */
+        .header-center { width: 30%; text-align: center; }
+        .header-center img { height: 32px; filter: drop-shadow(0 0 5px rgba(255,71,71,0.5)); }
+
+        /* Menu bên phải */
+        .header-right { width: 35%; text-align: right; }
+        .menu-toggle { font-size: 22px; cursor: pointer; color: #fff; }
+
+        /* Sidebar trượt */
+        #sidebar {
+            position: fixed; right: -280px; top: 0; width: 260px; height: 100%;
+            background: rgba(0,0,0,0.95); transition: 0.4s; z-index: 1001; 
+            padding-top: 60px; border-left: 1px solid var(--primary);
+        }
+        #sidebar a { display: block; padding: 15px 25px; color: #fff; text-decoration: none; font-weight: bold; border-bottom: 1px solid #222; }
+        #sidebar a:hover { background: var(--primary); padding-left: 35px; transition: 0.3s; }
+
+        .container { max-width: 500px; margin: 0 auto; padding: 15px; }
+
+        /* Bảng lịch sử mua cá nhân */
+        .history-section { background: var(--card); border-radius: 12px; border: 1px solid #333; margin-top: 30px; overflow: hidden; }
+        .history-title { background: #222; padding: 12px; font-weight: bold; color: var(--orange); display: flex; align-items: center; gap: 10px; }
+        table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        th { background: #1a1a1a; padding: 12px 10px; text-align: left; color: #777; }
+        td { padding: 12px 10px; border-bottom: 1px solid #222; }
+        .status-badge { padding: 3px 6px; border-radius: 4px; font-size: 10px; font-weight: bold; }
+        .bg-green { background: rgba(46, 204, 113, 0.2); color: #2ecc71; }
+
+        /* Footer */
+        footer { background: #000; padding: 40px 20px; border-top: 1px solid #222; margin-top: 60px; color: #999; font-size: 13px; line-height: 1.8; }
+        .f-bold { color: #fff; font-weight: bold; margin-bottom: 12px; display: block; font-size: 15px; border-left: 3px solid var(--primary); padding-left: 10px; }
     </style>
 </head>
 <body>
+
 <header>
-    <div class="logo"><img src="logo.png"></div> <nav><a href="/napthe">Nạp Thẻ</a><a href="/lichsu">Lịch Sử</a></nav>
-</header>
-<div class="container">
-    <img src="banner.png" class="banner"> <div class="box">
-        <div class="box-h">NẠP THẺ CÀO TỰ ĐỘNG</div>
-        <div class="alert-red">
-            ⚠️ <b>CẢNH BÁO:</b> Vui lòng chọn đúng mệnh giá. Sai 3 lần sẽ bị khóa tài khoản 20 phút. </div>
-        <form action="/callback" method="POST" class="form-group">
-            <label>LOẠI THẺ</label>
-            <select name="card_type"><option>Viettel</option><option>Garena</option><option>Zing</option></select>
-            <label>MỆNH GIÁ</label>
-            <select name="amount"><option value="10000">10.000đ</option><option value="50000">50.000đ</option></select>
-            <input type="text" name="serial" placeholder="Nhập Serial" required>
-            <input type="text" name="pin" placeholder="Nhập Mã Thẻ" required>
-            <button class="btn-send">NẠP THẺ NGAY</button>
-        </form>
+    <div class="header-left">
+        <img src="https://accgameuytin.com/assets/images/run.gif" class="avatar">
+        <div class="user-meta">
+            <b>User_ABC123</b>
+            <span>Số dư: 500,000đ</span>
+        </div>
     </div>
-    <div class="grid" id="shop"></div>
+    <div class="header-center">
+        <img src="logo.png" alt="NetCard Logo"> </div>
+    <div class="header-right">
+        <i class="fa fa-bars menu-toggle" onclick="toggleMenu()"></i>
+    </div>
+</header>
+
+<div id="sidebar">
+    <a href="/"><i class="fa fa-home"></i> Trang Chủ</a>
+    <a href="/napthe"><i class="fa fa-credit-card"></i> Nạp Thẻ Cào</a>
+    <a href="/napgame"><i class="fa fa-gamepad"></i> Nạp Tiền Game</a>
+    <a href="/huongdan"><i class="fa fa-book"></i> Hướng Dẫn</a>
+    <a href="/lichsu"><i class="fa fa-history"></i> Lịch Sử Giao Dịch</a>
+    <a href="#" style="color: var(--primary);"><i class="fa fa-sign-out-alt"></i> Đăng Xuất</a>
 </div>
+
+<div class="container">
+    <div class="history-section">
+        <div class="history-title"><i class="fa fa-user"></i> LỊCH SỬ MUA CỦA BẠN</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Loại thẻ</th>
+                    <th>Mệnh giá</th>
+                    <th>Trạng thái</th>
+                </tr>
+            </thead>
+            <tbody id="personalLogs">
+                <tr><td>Viettel</td><td>100.000đ</td><td><span class="status-badge bg-green">Thành công</span></td></tr>
+                <tr><td>Garena</td><td>50.000đ</td><td><span class="status-badge bg-green">Thành công</span></td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer>
+    <span class="f-bold">VỀ CHÚNG TÔI</span>
+    <p>NetCard.vn tự hào là đơn vị đi đầu trong lĩnh vực cung cấp mã thẻ game, thẻ điện thoại trực tuyến với mức chiết khấu cực kỳ ưu đãi. Chúng tôi không chỉ cung cấp dịch vụ bán thẻ mà còn hỗ trợ gạch thẻ cào tự động cho các đối tác API trên toàn quốc. Hệ thống được vận hành 24/7 bởi đội ngũ kỹ thuật giàu kinh nghiệm, đảm bảo giao dịch thông suốt không gián đoạn.</p>
+    
+    <span class="f-bold">CHÍNH SÁCH BẢO MẬT</span>
+    <p>Chào mừng bạn đến với NetCard.vn. Chúng tôi cam kết bảo vệ tuyệt đối thông tin cá nhân của bạn thông qua các lớp bảo mật đa tầng. Khi bạn đăng ký và giao dịch tại hệ thống, mọi dữ liệu bao gồm: số điện thoại, lịch sử mua thẻ, và thông tin tài khoản đều được mã hóa bằng giao thức SSL 256-bit cao cấp nhất. Chúng tôi tuyệt đối không cung cấp, mua bán hoặc trao đổi dữ liệu khách hàng cho bên thứ ba vì bất kỳ mục đích nào. Mọi hoạt động truy cập trái phép vào tài khoản của bạn đều được hệ thống AI giám sát và ngăn chặn kịp thời thông qua cơ chế khóa bảo vệ 20 phút nếu phát hiện hành vi nghi ngờ. Bạn hoàn toàn có thể yên tâm khi thực hiện nạp thẻ và mua sắm tại đây.</p>
+    
+    <center style="margin-top: 30px;">
+        <p>© 2026 NetCard.vn - Hệ Thống Nạp Thẻ Tự Động Uy Tín Số 1.</p>
+    </center>
+</footer>
+
 <script>
-    const list = [
-        {n:'Viettel', ck:'2%', l:'viettel'}, {n:'Garena', ck:'4%', l:'garena'},
-        {n:'Zing', ck:'3%', l:'zing'}, {n:'Vcoin', ck:'4%', l:'vcoin'}
-    ];
-    document.getElementById('shop').innerHTML = list.map(i => `
-        <a href="/${i.l}" class="item"><b>${i.n}</b><small>CK ${i.ck}</small></a>
-    `).join('');
+    function toggleMenu() {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.style.right = sidebar.style.right === '0px' ? '-280px' : '0px';
+    }
+
+    // Tích hợp 3 mẫu SweetAlert của ní
+    function muaThe(loai, gia) {
+        // Mẫu 3: Hỏi trước khi mua
+        Swal.fire({
+            title: "Bạn chắc không?",
+            text: `Bạn có muốn mua ${loai} với mệnh giá ${gia} không?`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Có, tôi mua"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Logic thành công/thất bại tùy biến ở đây
+                let thanhCong = true; 
+                if (thanhCong) {
+                    // Mẫu 1: Thành công
+                    Swal.fire({ title: "Thành công!", text: `Bạn đã mua thẻ ${loai} với mệnh giá ${gia}!`, icon: "success" });
+                    
+                    // Nổ thông báo Toast "Thật"
+                    notifyRealTime("User_ABC123", loai, gia);
+                } else {
+                    // Mẫu 2: Thất bại
+                    Swal.fire({ icon: "error", title: "Thất bại", text: "Số dư không đủ, vui lòng nạp thêm", footer: '<a href="/napthe">Tại sao tôi gặp lỗi này?</a>' });
+                }
+            }
+        });
+    }
+
+    function notifyRealTime(user, loai, gia) {
+        Swal.fire({
+            toast: true, position: 'top-start', showConfirmButton: false, timer: 4000,
+            background: '#151515', color: '#fff',
+            html: `<div style="display: flex; align-items:center; gap:10px;"><img src="https://accgameuytin.com/assets/images/run.gif" width="35" style="border-radius:50%"><div><b>${user}</b> vừa mua <b>${loai}</b><br><small>Mệnh giá: ${gia}</small></div></div>`
+        });
+    }
 </script>
 </body>
-</html>
