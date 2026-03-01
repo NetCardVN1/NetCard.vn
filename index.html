@@ -157,5 +157,46 @@
     }
 </script>
 </body>
-</html>
+<div id="chat-container" style="position: fixed; bottom: 100px; right: 20px; width: 300px; background: #151515; border: 1px solid #ff4747; border-radius: 15px; display: none; flex-direction: column; z-index: 9999; box-shadow: 0 0 20px rgba(0,0,0,0.5);">
+    <div style="background: #ff4747; padding: 10px; border-top-left-radius: 14px; border-top-right-radius: 14px; font-weight: bold; display: flex; justify-content: space-between;">
+        <span><i class="fa fa-robot"></i> HỖ TRỢ NETCARD</span>
+        <span onclick="toggleChat()" style="cursor:pointer;">&times;</span>
+    </div>
+    <div id="chat-content" style="height: 300px; overflow-y: auto; padding: 10px; font-size: 13px; display: flex; flex-direction: column; gap: 10px;">
+        <div style="background: #222; padding: 8px; border-radius: 8px;">Chào ní! NetCard có thể giúp gì cho ní hôm nay?</div>
+    </div>
+    <div style="padding: 10px; border-top: 1px solid #333; display: flex; flex-wrap: wrap; gap: 5px;">
+        <button onclick="botAnswer('checkScam')" style="background:#444; color:#fff; border:none; padding:5px 10px; border-radius:5px; font-size:11px; cursor:pointer;">⚠️ Tránh bị lừa</button>
+        <button onclick="botAnswer('buyCard')" style="background:#444; color:#fff; border:none; padding:5px 10px; border-radius:5px; font-size:11px; cursor:pointer;">🛒 Cách mua thẻ</button>
+        <button onclick="botAnswer('contact')" style="background:#444; color:#fff; border:none; padding:5px 10px; border-radius:5px; font-size:11px; cursor:pointer;">📞 Admin</button>
+    </div>
+</div>
 
+<div class="chatbot" onclick="toggleChat()">
+    <img src="https://cdn.vn.garenanow.com/web/ddt/ffcafe/grn-customer-service-home-react/images/livechatbot.gif" style="width: 65px; border-radius: 50%; box-shadow: 0 0 15px #ff4747; cursor: pointer;">
+</div>
+
+<script>
+    function toggleChat() {
+        const chat = document.getElementById('chat-container');
+        chat.style.display = chat.style.display === 'none' ? 'flex' : 'none';
+    }
+
+    function botAnswer(type) {
+        const content = document.getElementById('chat-content');
+        let msg = "";
+        
+        if(type === 'checkScam') {
+            msg = `<b style="color:#ff8c00;">CẢNH BÁO AN TOÀN:</b><br>1. NetCard KHÔNG bao giờ yêu cầu mật khẩu của bạn.<br>2. Cẩn thận các trang web giả mạo tên miền.<br>3. Chỉ giao dịch trên đúng link <b>NetCard.vn</b> để tránh bị mất tiền oan ní nhé!`;
+        } else if(type === 'buyCard') {
+            msg = `<b>HƯỚNG DẪN MUA THẺ:</b><br>Bấm vào thẻ ní muốn mua -> Chọn mệnh giá -> Xác nhận. Nếu số dư 0đ, ní nhớ nạp tiền trước nha!`;
+        } else if(type === 'contact') {
+            msg = `<b>HỖ TRỢ TRỰC TUYẾN:</b><br>Đang Update...<br>Thời gian: 24/7.`;
+        }
+
+        content.innerHTML += `<div style="background: #ff4747; color: #fff; align-self: flex-start; padding: 8px; border-radius: 8px; margin-top: 10px;">${msg}</div>`;
+        content.scrollTop = content.scrollHeight;
+    }
+</script>
+</body>
+</html>
