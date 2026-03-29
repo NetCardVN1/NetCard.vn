@@ -3,141 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NetCard.vn - Update 07/03/2026</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>NetCard.vn - Shop Acc & Túi Mù FC</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-        :root { --primary: #ff4747; --dark: #0b0b0b; --card: #151515; --orange: #ff8c00; }
-        body { font-family: 'Roboto', sans-serif; background: var(--dark); color: #fff; margin: 0; padding-bottom: 80px; }
+        :root { --primary: #ff4747; --dark: #0b0b0b; --card: #1a1a1a; --yellow-fc: #cddc39; }
+        body { font-family: sans-serif; background: var(--dark); color: #fff; margin: 0; }
+        .flash-sale { background: linear-gradient(90deg, #ff4747, #ff8c00); padding: 10px; text-align: center; font-weight: bold; }
+        .container { max-width: 500px; margin: auto; padding: 15px; }
+        .section-title { margin: 20px 0 10px; border-left: 4px solid var(--primary); padding-left: 10px; text-transform: uppercase; font-size: 14px; }
         
-        /* Header & Flash Sale */
-        header { background: #000; padding: 12px 15px; border-bottom: 2px solid var(--primary); display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 1000; }
-        .flash-sale { background: linear-gradient(90deg, #ff4747, #ff8c00); padding: 8px; text-align: center; font-weight: bold; font-size: 13px; color: #fff; }
-
-        .container { max-width: 500px; margin: 0 auto; padding: 15px; }
-        .section-title { margin: 20px 0 10px; font-weight: bold; color: var(--orange); border-left: 5px solid var(--orange); padding-left: 10px; text-transform: uppercase; }
-
-        /* Grid Card Acc & Túi Mù */
-        .grid-pro { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .card-pro { background: var(--card); border-radius: 12px; border: 1px solid #333; overflow: hidden; position: relative; }
-        .card-pro img { width: 100%; height: 120px; object-fit: cover; }
-        .tag-vip { position: absolute; top: 5px; left: 5px; background: var(--orange); color: #000; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px; }
-        .card-info { padding: 10px; text-align: center; }
-        .card-name { font-size: 12px; font-weight: bold; height: 35px; overflow: hidden; margin-bottom: 8px; }
-        .stats-row { display: flex; justify-content: space-around; font-size: 10px; color: #888; margin-bottom: 10px; }
-        .stats-row b { color: #2ecc71; font-size: 13px; display: block; }
-        .btn-view { background: var(--orange); color: #fff; border: none; width: 90%; padding: 8px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-bottom: 10px; transition: 0.3s; }
-        .btn-view:hover { background: #e67e22; }
-
-        /* ChatBot ẩn/hiện */
-        .bot-bubble { position: fixed; bottom: 20px; right: 20px; z-index: 999; cursor: pointer; }
+        /* Grid Sản phẩm */
+        .grid-pro { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .card-pro { background: var(--card); border: 1px solid #333; border-radius: 4px; overflow: hidden; position: relative; }
+        .card-info { padding: 8px; }
+        .card-name { font-size: 11px; font-weight: bold; height: 32px; overflow: hidden; }
+        .card-stats { font-size: 10px; color: #999; margin: 5px 0; }
+        .card-stats span { color: #fff; }
+        .card-price { color: var(--yellow-fc); font-weight: bold; font-size: 13px; text-align: right; }
+        .btn-buy { background: var(--yellow-fc); color: #000; border: none; width: 100%; padding: 8px; font-weight: bold; border-radius: 4px; cursor: pointer; margin-top: 5px; }
     </style>
 </head>
 <body>
 
-<div class="flash-sale">🔥 FLASH SALE: <span id="countdown">Đang tải...</span></div>
-
-<header>
-    <div style="display:flex; align-items:center; gap:8px;">
-        <img src="assets/run.gif" style="width:35px; border-radius:50%; border:1px solid var(--orange);">
-        <div style="font-size:11px;"><b>User_ABC123</b><br>0đ</div>
-    </div>
-    <img src="assets/logo.png" style="height:25px;" onerror="this.src='https://i.imgur.com/K6R4S7G.png'">
-    <i class="fa fa-bars" onclick="Swal.fire('Menu', 'Chức năng đang cập nhật', 'info')"></i>
-</header>
+<div class="flash-sale">🔥 FLASH SALE KẾT THÚC SAU: <span id="clock">00:00:00</span></div>
 
 <div class="container">
-    <div class="section-title">🎮 ACC FREE FIRE GIÁ SỐC</div>
+    <div class="section-title" style="border-color: var(--yellow-fc); color: var(--yellow-fc);">⚽ ACC FC MOBILE VIP</div>
     <div class="grid-pro">
         <div class="card-pro">
-            <span class="tag-vip">PRIME (VIP)</span>
-            <img src="https://i.imgur.com/vHqB3qQ.jpeg">
+            <img src="https://i.imgur.com/vHqB3qQ.jpeg" style="width:100%;">
             <div class="card-info">
-                <div class="card-name">ACC FF SIÊU CẤP - ĐỒ ĐỎ + SKIN SÚNG</div>
-                <div class="stats-row">
-                    <div>Chưa bán: <b>123</b></div>
-                    <div>Đã bán: <b>9,920</b></div>
+                <div class="card-name">ĐỘI HÌNH OVR 121 - RONALDO UTOTY & PELE</div>
+                <div class="card-stats">
+                    <div>• GTĐH: <span>85 TỶ 800TR</span></div>
+                    <div>• Coin dư: <span>343 TRIỆU</span></div>
                 </div>
-                <button class="btn-view" onclick="buyProcess('Acc Free Fire')">XEM TẤT CẢ</button>
-            </div>
-        </div>
-        <div class="card-pro">
-            <img src="https://i.imgur.com/J8YmB5K.jpeg">
-            <div class="card-info">
-                <div class="card-name">ACC REG TRẮNG THÔNG TIN</div>
-                <div class="stats-row">
-                    <div>Chưa bán: <b>500</b></div>
-                    <div>Đã bán: <b>1,500</b></div>
-                </div>
-                <button class="btn-view" onclick="buyProcess('Acc Reg')">XEM TẤT CẢ</button>
+                <div class="card-price">999,999 ATM</div>
+                <button class="btn-buy" onclick="checkAuth()">MUA NGAY</button>
             </div>
         </div>
     </div>
 
-    <div class="section-title">🎁 TÚI MÙ (RANDOM BOX)</div>
+    <div class="section-title">🎁 TÚI MÙ FC (RANDOM BOX)</div>
     <div class="grid-pro">
-        <div class="card-pro">
-            <img src="https://i.imgur.com/39V0w7B.jpeg">
+        <div class="card-pro" onclick="location.href='tuimurandom.html'">
+            <img src="assets/1000018573.gif" style="width:100%;">
             <div class="card-info">
-                <div class="card-name">TÚI MÙ ĐẠI GIA - 499K</div>
-                <div class="stats-row">
-                    <div>Chưa bán: <b>300</b></div>
-                    <div>Đã bán: <b>1,203</b></div>
-                </div>
-                <button class="btn-view" onclick="location.href='tuimu_random.html'">MUA NGAY</button>
+                <div class="card-name">BOX ĐẠI GIA (SÚNG + ĐỒ VIP)</div>
+                <div class="card-price">499,000đ</div>
+                <button class="btn-buy" style="background:var(--primary); color:#fff;">MỞ TÚI</button>
             </div>
         </div>
-        <div class="card-pro">
-            <img src="https://i.imgur.com/M6X8jH6.jpeg">
+        <div class="card-pro" onclick="location.href='tuimurandom.html'">
+            <img src="assets/1000018574.gif" style="width:100%;">
             <div class="card-info">
-                <div class="card-name">TÚI MÙ VIP 6 - 49K</div>
-                <div class="stats-row">
-                    <div>Chưa bán: <b>200</b></div>
-                    <div>Đã bán: <b>5,301</b></div>
-                </div>
-                <button class="btn-view" onclick="location.href='tuimu_random.html'">MUA NGAY</button>
+                <div class="card-name">BOX SINH VIÊN (ACC NGẪU NHIÊN)</div>
+                <div class="card-price">99,000đ</div>
+                <button class="btn-buy" style="background:#2ecc71; color:#fff;">MỞ TÚI</button>
             </div>
         </div>
     </div>
 </div>
 
-<div class="bot-bubble" onclick="openChat()"><img src="https://i.imgur.com/livechatbot.gif" width="60"></div>
-
 <script>
-    // Countdown Flash Sale
-    function startCountdown() {
+    function updateClock() {
         const now = new Date();
-        const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
-        const diff = tomorrow - now;
-        
-        const hours = Math.floor(diff / (1000 * 60 * 60));
-        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const secs = Math.floor((diff % (1000 * 60)) / 1000);
-        
-        document.getElementById('countdown').innerText = `${hours}h : ${mins}m : ${secs}s (Kết thúc ngày mai)`;
+        const end = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+        const diff = end - now;
+        const h = Math.floor(diff / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        document.getElementById('clock').innerText = `${h}h : ${m}m : ${s}s`;
     }
-    setInterval(startCountdown, 1000);
+    setInterval(updateClock, 1000);
 
-    function buyProcess(name) {
-        Swal.fire({
-            title: "Đang chuyển hướng",
-            text: `Bạn đang vào xem danh mục: ${name}`,
-            icon: "info",
-            timer: 1500,
-            showConfirmButton: false
-        }).then(() => {
-            // Hiển thị trạng thái "Còn hàng" như trong sổ
-            Swal.fire("Thông báo", "Hiện tại vẫn còn hàng để ní lựa chọn!", "success");
-        });
-    }
-
-    function openChat() {
-        Swal.fire({
-            title: "Hỗ trợ Tránh lừa đảo",
-            text: "NetCard.vn không bao giờ yêu cầu OTP hoặc mật khẩu. Cẩn thận các trang web giả mạo ní nhé!",
-            icon: "warning",
-            confirmButtonText: "Đã hiểu!"
-        });
+    function checkAuth() {
+        if(!localStorage.getItem('user')) {
+            window.location.href = 'auth.html';
+        } else {
+            Swal.fire("Thành công", "Đang chuyển đến thanh toán!", "success");
+        }
     }
 </script>
 </body>
