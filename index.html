@@ -3,87 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NetCard.vn - Shop Acc & Túi Mù FC</title>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>NetCard.vn - Shop Game VIP</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root { --primary: #ff4747; --dark: #0b0b0b; --card: #1a1a1a; --yellow-fc: #cddc39; }
-        body { font-family: sans-serif; background: var(--dark); color: #fff; margin: 0; }
-        .flash-sale { background: linear-gradient(90deg, #ff4747, #ff8c00); padding: 10px; text-align: center; font-weight: bold; }
-        .container { max-width: 500px; margin: auto; padding: 15px; }
-        .section-title { margin: 20px 0 10px; border-left: 4px solid var(--primary); padding-left: 10px; text-transform: uppercase; font-size: 14px; }
-        
-        /* Grid Sản phẩm */
-        .grid-pro { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .card-pro { background: var(--card); border: 1px solid #333; border-radius: 4px; overflow: hidden; position: relative; }
-        .card-info { padding: 8px; }
-        .card-name { font-size: 11px; font-weight: bold; height: 32px; overflow: hidden; }
-        .card-stats { font-size: 10px; color: #999; margin: 5px 0; }
-        .card-stats span { color: #fff; }
-        .card-price { color: var(--yellow-fc); font-weight: bold; font-size: 13px; text-align: right; }
-        .btn-buy { background: var(--yellow-fc); color: #000; border: none; width: 100%; padding: 8px; font-weight: bold; border-radius: 4px; cursor: pointer; margin-top: 5px; }
+        :root { --primary: #ff4747; --dark: #0b0b0b; --card: #1a1a1a; }
+        body { font-family: sans-serif; background: var(--dark); color: #fff; margin: 0; padding-bottom: 60px; }
+        .container { max-width: 500px; margin: auto; padding: 10px; }
+        .flash-sale { background: linear-gradient(90deg, #ff4747, #ff8c00); padding: 10px; text-align: center; font-weight: bold; font-size: 12px; }
+        .marquee-box { background: rgba(0,0,0,0.6); border: 1px solid #222; padding: 5px; display: flex; align-items: center; gap: 8px; margin: 10px 0; border-radius: 4px; }
+        .marquee-gif { height: 20px; }
+        marquee { color: #2ecc71; font-weight: bold; font-size: 11px; }
+        #chatbot-bubble { position: fixed; bottom: 80px; right: 20px; z-index: 999; cursor: pointer; }
+        #chatbot-bubble img { width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--primary); box-shadow: 0 0 15px var(--primary); }
     </style>
 </head>
 <body>
-
-<div class="flash-sale">🔥 FLASH SALE KẾT THÚC SAU: <span id="clock">00:00:00</span></div>
-
-<div class="container">
-    <div class="section-title" style="border-color: var(--yellow-fc); color: var(--yellow-fc);">⚽ ACC FC MOBILE VIP</div>
-    <div class="grid-pro">
-        <div class="card-pro">
-            <img src="https://i.imgur.com/vHqB3qQ.jpeg" style="width:100%;">
-            <div class="card-info">
-                <div class="card-name">ĐỘI HÌNH OVR 121 - RONALDO UTOTY & PELE</div>
-                <div class="card-stats">
-                    <div>• GTĐH: <span>85 TỶ 800TR</span></div>
-                    <div>• Coin dư: <span>343 TRIỆU</span></div>
-                </div>
-                <div class="card-price">999,999 ATM</div>
-                <button class="btn-buy" onclick="checkAuth()">MUA NGAY</button>
-            </div>
+    <div class="flash-sale">🔥 FLASH SALE: 16h : 35m : 27s (Kết thúc ngày mai)</div>
+    <div class="marquee-box">
+        <img src="assets/run.gif" class="marquee-gif">
+        <marquee>🎊 Người dùng User_ABC123 đã nạp thành công 500.000đ!</marquee>
+    </div>
+    <div class="container">
+        <div style="background:var(--card); padding:15px; border-radius:8px; border:1px solid #333; margin-bottom:15px;">
+            <h4 style="text-align:center; color:var(--primary); margin:0 0 10px 0;">NẠP THẺ TỰ ĐỘNG</h4>
+            <input type="text" placeholder="Mã thẻ / Seri" style="width:100%; padding:12px; background:#000; border:1px solid #444; color:#fff; border-radius:6px; box-sizing:border-box;">
+            <button style="width:100%; padding:12px; background:var(--primary); color:#fff; border:none; font-weight:bold; margin-top:10px; border-radius:6px;">NẠP NGAY</button>
         </div>
     </div>
-
-    <div class="section-title">🎁 TÚI MÙ FC (RANDOM BOX)</div>
-    <div class="grid-pro">
-        <div class="card-pro" onclick="location.href='tuimurandom.html'">
-            <img src="assets/1000018573.gif" style="width:100%;">
-            <div class="card-info">
-                <div class="card-name">BOX ĐẠI GIA (SÚNG + ĐỒ VIP)</div>
-                <div class="card-price">499,000đ</div>
-                <button class="btn-buy" style="background:var(--primary); color:#fff;">MỞ TÚI</button>
-            </div>
-        </div>
-        <div class="card-pro" onclick="location.href='tuimurandom.html'">
-            <img src="assets/1000018574.gif" style="width:100%;">
-            <div class="card-info">
-                <div class="card-name">BOX SINH VIÊN (ACC NGẪU NHIÊN)</div>
-                <div class="card-price">99,000đ</div>
-                <button class="btn-buy" style="background:#2ecc71; color:#fff;">MỞ TÚI</button>
-            </div>
-        </div>
+    <div id="chatbot-bubble" onclick="alert('🤖 HD Nạp Thẻ:\nB1: Cào lấy mã.\nB2: Nhập mã + Seri.\nB3: Chờ hệ thống duyệt.\n⚠️ Nhập đúng mệnh giá nha ní!')">
+        <img src="assets/livechatbot (1).gif">
     </div>
-</div>
-
-<script>
-    function updateClock() {
-        const now = new Date();
-        const end = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
-        const diff = end - now;
-        const h = Math.floor(diff / 3600000);
-        const m = Math.floor((diff % 3600000) / 60000);
-        const s = Math.floor((diff % 60000) / 1000);
-        document.getElementById('clock').innerText = `${h}h : ${m}m : ${s}s`;
-    }
-    setInterval(updateClock, 1000);
-
-    function checkAuth() {
-        if(!localStorage.getItem('user')) {
-            window.location.href = 'auth.html';
-        } else {
-            Swal.fire("Thành công", "Đang chuyển đến thanh toán!", "success");
-        }
-    }
-</script>
 </body>
 </html>
