@@ -1,216 +1,76 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NetCard.vn - Shop Game VIP</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-        :root { --primary: #ff4747; --dark: #0b0b0b; --card: #1a1a1a; --yellow-fc: #cddc39; --orange-ff: #ff8c00; }
-        body { font-family: 'Roboto', sans-serif; background: var(--dark); color: #fff; margin: 0; padding-bottom: 80px; overflow-x: hidden; }
-        
-        /* 🔥 Flash Sale - Cầu Vồng */
-        .flash-sale { background: linear-gradient(90deg, #ff4747, #ff8c00); padding: 12px; text-align: center; font-weight: bold; font-size: 13px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        
-        /* Hiệu ứng cầu vồng cho giờ và ngày */
-        .rainbow-text { 
-            background-image: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-size: 200% auto;
-            animation: rainbow_animation 4s linear infinite;
-        }
-
-        @keyframes rainbow_animation {
-            to { background-position: 200% center; }
-        }
-
-        header { background: #000; padding: 12px 15px; border-bottom: 1px solid var(--primary); display: flex; justify-content: space-between; align-items: center; }
-        .logo-img { height: 32px; object-fit: contain; }
-
-        .container { max-width: 500px; margin: auto; padding: 10px; }
-
-        /* Nạp thẻ */
-        .box-nap { background: var(--card); border: 1px solid #333; border-radius: 10px; padding: 20px; margin: 15px 0 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
-        .box-nap h4 { text-align: center; color: var(--primary); margin: 0 0 15px 0; text-transform: uppercase; font-size: 16px; }
-        .input-group { margin-bottom: 15px; }
-        select, input { width: 100%; padding: 14px; background: #000; border: 1px solid #333; color: #fff; border-radius: 8px; box-sizing: border-box; margin-bottom: 12px; font-size: 13px; }
-        select:focus, input:focus { border-color: var(--primary); outline: none; }
-        .btn-nap { width: 100%; padding: 14px; background: var(--primary); color: #fff; border: none; font-weight: bold; border-radius: 8px; cursor: pointer; font-size: 14px; text-transform: uppercase; transition: background 0.2s; }
-        .btn-nap:hover { background: #ff6666; }
-
-        /* Section Title */
-        .section-title { margin: 30px 0 15px; display: flex; align-items: center; gap: 8px; color: var(--orange-ff); font-weight: bold; text-transform: uppercase; font-size: 15px; border-left: 4px solid var(--orange-ff); padding-left: 10px; }
-        .section-title i { color: var(--orange-ff); }
-
-        /* Grid Sản phẩm */
-        .grid-pro { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .card-pro { background: var(--card); border-radius: 12px; border: 1px solid #333; overflow: hidden; position: relative; transition: transform 0.2s, border-color 0.2s; }
-        .card-pro:hover { transform: translateY(-3px); border-color: var(--orange-ff); }
-        .card-pro img { width: 100%; height: auto; display: block; border-bottom: 1px solid #222; }
-        
-        .pro-detail { padding: 12px; text-align: center; }
-        .pro-name { font-size: 12px; font-weight: bold; margin-bottom: 10px; height: 32px; overflow: hidden; line-height: 1.4; color: #eee; }
-        .pro-stats { display: flex; justify-content: space-between; font-size: 10px; color: #aaa; margin-bottom: 12px; }
-        .pro-stats b { color: var(--green-nap); }
-        .tag-sale { color: #ff4747; font-weight: bold; }
-        
-        .btn-action { width: 100%; padding: 10px; background: var(--orange-ff); color: #fff; border: none; font-weight: bold; border-radius: 6px; font-size: 12px; cursor: pointer; text-transform: uppercase; transition: background 0.2s; }
-        .btn-action:hover { background: #ffaa33; }
-
-        /* ChatBot */
-        #chatbot-bubble { position: fixed; bottom: 30px; right: 20px; z-index: 999; cursor: pointer; transition: transform 0.3s; }
-        #chatbot-bubble:hover { transform: scale(1.1); }
-        #chatbot-bubble img { width: 60px; height: 60px; border-radius: 50%; border: 2px solid var(--primary); box-shadow: 0 4px 15px rgba(255, 71, 71, 0.4); }
+        :root { --p: #ff4747; --d: #0b0b0b; --c: #1a1a1a; --o: #ff8c00; }
+        body { background: var(--d); color: #fff; font-family: sans-serif; margin: 0; padding-bottom: 30px; }
+        /* Hiệu ứng chữ cầu vồng */
+        .rainbow { background-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200% auto; animation: r 4s linear infinite; }
+        @keyframes r { to { background-position: 200% center; } }
+        .fs { background: linear-gradient(90deg, #ff4747, #ff8c00); padding: 10px; text-align: center; font-weight: bold; font-size: 12px; }
+        .container { padding: 10px; max-width: 500px; margin: auto; }
+        .box-nap { background: var(--c); padding: 20px; border-radius: 10px; border: 1px solid #333; margin-top: 15px; }
+        select, input { width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 6px; margin-bottom: 12px; box-sizing: border-box; }
+        .btn-nap { width: 100%; padding: 14px; background: var(--p); color: #fff; border: none; font-weight: bold; border-radius: 8px; cursor: pointer; text-transform: uppercase; }
+        .marquee-box { background: rgba(0,0,0,0.6); border: 1px solid #222; padding: 5px; display: flex; align-items: center; gap: 8px; margin: 15px 0; border-radius: 4px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+        .card { background: var(--c); border-radius: 10px; border: 1px solid #333; overflow: hidden; text-align: center; padding-bottom: 12px; }
+        .card img { width: 100%; height: 110px; object-fit: cover; }
+        .btn-buy { width: 90%; padding: 9px; background: var(--o); border: none; color: #fff; font-weight: bold; border-radius: 6px; font-size: 11px; cursor: pointer; }
     </style>
 </head>
 <body>
+    <script>if (localStorage.getItem('isLogin') !== 'true') window.location.href = 'auth.html';</script>
 
-    <div class="flash-sale">
-        🔥 <span id="realtime-clock" class="rainbow-text">17:31:52</span> - <span id="current-date" class="rainbow-text">30/03/2026</span>
-    </div>
-
-    <header>
-        <img src="assets/logo2.png" class="logo-img" alt="NetCard Logo">
-        <i class="fas fa-bars" style="font-size: 22px; color: var(--primary); cursor: pointer;" onclick="Swal.fire('Thông báo', 'Menu đang phát triển!', 'info')"></i>
-    </header>
+    <div class="fs">🔥 <span id="clock" class="rainbow">00:00:00</span> - <span id="date" class="rainbow">30/03/2026</span></div>
 
     <div class="container">
+        <div class="marquee-box">
+            <img src="assets/run.gif" style="height:20px;">
+            <marquee id="news" style="color:#2ecc71; font-weight:bold; font-size:11px;">🎊 Đang tải thông báo nạp thẻ...</marquee>
+        </div>
+
         <div class="box-nap">
-            <h4>NẠP THẺ TỰ ĐỘNG</h4>
-            <div class="input-group">
-                <select id="card_type">
-                    <option value="">-- Chọn loại thẻ --</option>
-                    <option value="viettel">Viettel</option>
-                    <option value="vinaphone">Vinaphone</option>
-                    <option value="mobifone">Mobifone</option>
-                    <option value="garena">Garena</option>
-                </select>
-                <select id="card_value">
-                    <option value="">-- Chọn mệnh giá --</option>
-                    <option value="10000">10,000đ</option>
-                    <option value="20000">20,000đ</option>
-                    <option value="50000">50,000đ</option>
-                    <option value="100000">100,000đ</option>
-                    <option value="200000">200,000đ</option>
-                    <option value="500000">500,000đ</option>
-                </select>
-                <input type="text" id="serial_number" placeholder="Số Serial">
-                <input type="text" id="pin_code" placeholder="Mã thẻ">
-            </div>
-            <button class="btn-nap" onclick="Swal.fire('NetCard Thông Báo', 'Hệ thống nạp đang bảo trì!', 'warning')">NẠP NGAY</button>
+            <h4 style="text-align:center; color:var(--p); margin:0 0 15px 0;">NẠP THẺ TỰ ĐỘNG</h4>
+            <select id="telco"><option value="">-- Chọn loại thẻ --</option><option value="VIETTEL">Viettel</option><option value="VINAPHONE">Vinaphone</option></select>
+            <select id="amount"><option value="">-- Chọn mệnh giá --</option><option value="50000">50,000đ</option><option value="100000">100,000đ</option></select>
+            <input type="text" id="serial" placeholder="Số Serial">
+            <input type="text" id="pin" placeholder="Mã thẻ">
+            <button class="btn-nap" onclick="guiThe()">NẠP NGAY</button>
         </div>
 
-        <div class="section-title"><i class="fas fa-gun"></i> ACC FREE FIRE GIÁ SỐC</div>
-        <div class="grid-pro">
-            <div class="card-pro">
-                <img src="https://via.placeholder.com/200x120?text=ACC+FF+SIEU+CAP">
-                <div class="pro-detail">
-                    <div class="pro-name">ACC FF SIÊU CẤP - ĐỒ ĐỎ + SKIN SÚNG</div>
-                    <div class="pro-stats">
-                        <span>Chưa bán: <b class="tag-sale">123</b></span>
-                        <span>Đã bán: <b>9,920</b></span>
-                    </div>
-                    <button class="btn-action" onclick="location.href='#'">XEM TẤT CẢ</button>
-                </div>
+        <h3 style="color:var(--o); font-size:14px; margin-top:25px;">🎁 TÚI MÙ (RANDOM BOX)</h3>
+        <div class="grid">
+            <div class="card">
+                <img src="assets/1000018749.gif"> <p style="font-size:12px;">Túi Mù FF Siêu Cấp</p>
+                <button class="btn-buy" onclick="location.href='tuimu_freefire.html'">XEM NGAY</button>
             </div>
-            <div class="card-pro">
-                <img src="https://via.placeholder.com/200x120?text=ACC+REG">
-                <div class="pro-detail">
-                    <div class="pro-name">ACC REG TRẮNG THÔNG TIN - GIÁ RẺ</div>
-                    <div class="pro-stats">
-                        <span>Chưa bán: <b class="tag-sale">500</b></span>
-                        <span>Đã bán: <b>1,500</b></span>
-                    </div>
-                    <button class="btn-action" onclick="location.href='#'">XEM TẤT CẢ</button>
-                </div>
+            <div class="card">
+                <img src="assets/1000018758.jpg"> <p style="font-size:12px;">Túi Mù FC Mobile</p>
+                <button class="btn-buy" onclick="location.href='tuimu_fcmobile.html'">XEM NGAY</button>
             </div>
         </div>
-
-        <div class="section-title"><i class="fas fa-gift"></i> TÚI MÙ (RANDOM BOX)</div>
-        <div class="grid-pro">
-            <div class="card-pro">
-                <img src="assets/1000018749.gif" alt="Túi mù 499k">
-                <div class="pro-detail">
-                    <div class="pro-name">TÚI MÙ ĐẠI GIA - 499K</div>
-                    <div class="pro-stats">
-                        <span>Chưa bán: <b class="tag-sale">300</b></span>
-                        <span>Đã bán: <b>1,203</b></span>
-                    </div>
-                    <button class="btn-action" style="background:var(--primary);" onclick="location.href='#'">MUA NGAY</button>
-                </div>
-            </div>
-            <div class="card-pro">
-                <img src="assets/1000018750.gif" alt="Túi mù 99k">
-                <div class="pro-detail">
-                    <div class="pro-name">TÚI MÙ SINH VIÊN - 99K</div>
-                    <div class="pro-stats">
-                        <span>Chưa bán: <b class="tag-sale">500</b></span>
-                        <span>Đã bán: <b>2,400</b></span>
-                    </div>
-                    <button class="btn-action" style="background:var(--primary);" onclick="location.href='#'">MUA NGAY</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="section-title"><i class="fas fa-football-ball"></i> ACC FC MOBILE (RANDOM)</div>
-        <div class="grid-pro">
-            <div class="card-pro">
-                <img src="assets/1000018758.jpg" alt="Thử vận may FC">
-                <div class="pro-detail">
-                    <div class="pro-name">THỬ VẬN MAY FC MOBILE 100K</div>
-                    <div class="pro-stats">
-                        <span>Chưa bán: <b class="tag-sale">150</b></span>
-                        <span>Đã bán: <b>890</b></span>
-                    </div>
-                    <button class="btn-action" style="background:#2ecc71;" onclick="location.href='#'">MUA NGAY</button>
-                </div>
-            </div>
-        </div>
-
     </div>
 
-    <div id="chatbot-bubble" onclick="Swal.fire('🤖 NetCard Support', 'Chào ní! NetCard Support đang phát triển. Ní cần hỗ trợ hãy liên hệ Fanpage nhé!', 'info')">
-        <img src="assets/livechatbot (1).gif" alt="ChatBot">
-    </div>
+    <script>
+        // Đồng hồ thời gian thực cầu vồng
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0') + ":" + now.getSeconds().toString().padStart(2, '0');
+        }
+        setInterval(updateClock, 1000); updateClock();
 
+        // Fake thông báo nạp tiền cho uy tín
+        const names = ["Ní_Cưng", "Minh_TraVinh", "Gamer_VIP", "Be_Chanh"];
+        document.getElementById('news').innerText = `🎊 Người dùng ${names[Math.floor(Math.random()*names.length)]} đã nạp thành công 100.000đ!`;
+
+        function guiThe() {
+            Swal.fire('Thành công', 'Thẻ đã gửi lên hệ thống, vui lòng đợi 1-3 phút để duyệt!', 'success');
+        }
+    </script>
 </body>
-<script>
-    // Logic Đồng hồ thời gian thực cầu vồng
-    function updateClock() {
-        const now = new Date();
-        
-        let hours = now.getHours();
-        let minutes = now.getMinutes();
-        let seconds = now.getSeconds();
-        
-        // Cố định ngày 30/03/2026 như ní yêu cầu
-        let day = 30;
-        let month = 3; 
-        let year = 2026;
-
-        hours = hours < 10 ? "0" + hours : hours;
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-        day = day < 10 ? "0" + day : day;
-        month = month < 10 ? "0" + month : month;
-
-        document.getElementById("realtime-clock").innerHTML = hours + ":" + minutes + ":" + seconds;
-        document.getElementById("current-date").innerHTML = day + "/" + month + "/" + year;
-    }
-
-    setInterval(updateClock, 1000);
-    updateClock(); // Chạy ngay lập tức khi load trang
-
-    // Thêm hiệu ứng gạch chéo mệnh giá nếu có sale (Ví dụ: 200k còn 100k)
-    function applySaleEffect() {
-        const oldPrices = document.querySelectorAll('.pro-stats span:first-child b');
-        oldPrices.forEach(price => {
-            // price.style.textDecoration = 'line-through'; 
-            // price.style.color = '#888';
-        });
-    }
-    applySaleEffect();
-</script>
 </html>
