@@ -1,54 +1,52 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng Nhập - NetCard.vn</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-        body { background: #0b0b0b; color: #fff; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
-        .auth-box { background: #151515; padding: 30px; border-radius: 15px; border: 1px solid #ff4747; width: 340px; text-align: center; box-shadow: 0 0 20px rgba(255,71,71,0.2); }
-        input { width: 100%; padding: 14px; margin: 10px 0; background: #000; border: 1px solid #333; color: #fff; border-radius: 8px; box-sizing: border-box; outline: none; }
-        input:focus { border-color: #ff4747; }
-        button { width: 100%; padding: 14px; background: #ff4747; border: none; color: #fff; font-weight: bold; border-radius: 8px; cursor: pointer; margin-top: 10px; transition: 0.3s; }
-        button:hover { background: #e03636; }
-        .toggle { margin-top: 20px; font-size: 13px; color: #888; }
-        .toggle a { color: #ff4747; text-decoration: none; font-weight: bold; }
+        body { background: #0b0b0b; color: #fff; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .auth-card { width: 90%; max-width: 350px; background: #1a1a1a; padding: 25px; border-radius: 12px; border: 1px solid #333; text-align: center; }
+        input { width: 100%; padding: 12px; margin: 10px 0; background: #000; border: 1px solid #444; color: #fff; border-radius: 6px; box-sizing: border-box; }
+        .btn { width: 100%; padding: 12px; background: #ff4747; border: none; color: #fff; font-weight: bold; border-radius: 6px; cursor: pointer; }
     </style>
 </head>
 <body>
-    <div class="auth-box" id="loginForm">
-        <img src="assets/logo2.png" style="height: 45px; margin-bottom: 20px;" onerror="this.src='https://via.placeholder.com/150x50?text=LOGO'">
-        <h2 style="color:#ff4747; margin: 0 0 20px;">ĐĂNG NHẬP</h2>
-        <input type="text" id="user" placeholder="Tên đăng nhập (Ví dụ: ABC123)">
-        <input type="password" id="pass" placeholder="Mật khẩu">
-        <button onclick="processLogin()">ĐĂNG NHẬP NGAY</button>
-        <div class="toggle">Bạn chưa có tài khoản? <a href="#" onclick="toggleAuth()">Tạo ngay!</a></div>
-    </div>
-
-    <div class="auth-box" id="regForm" style="display:none">
-        <h2 style="color:#ff8c00; margin: 0 0 20px;">ĐĂNG KÝ</h2>
-        <input type="text" placeholder="Tên tài khoản">
-        <input type="password" placeholder="Mật khẩu">
-        <input type="password" placeholder="Xác nhận mật khẩu">
-        <button onclick="processLogin()">TẠO TÀI KHOẢN</button>
-        <div class="toggle">Đã có tài khoản? <a href="#" onclick="toggleAuth()">Đăng nhập</a></div>
+    <div class="auth-card">
+        <h2 style="color:#ff4747">NETCARD.VN</h2>
+        <input type="text" id="u" placeholder="Tên đăng nhập">
+        <input type="password" id="p" placeholder="Mật khẩu">
+        <button class="btn" onclick="handleAuth()">VÀO SHOP</button>
+        <p onclick="toggleMode()" id="toggleBtn" style="font-size:12px; color:#888; cursor:pointer; margin-top:15px;">Chưa có tài khoản? Đăng ký</p>
     </div>
 
     <script>
-        function toggleAuth() {
-            document.getElementById('loginForm').style.display = document.getElementById('loginForm').style.display === 'none' ? 'block' : 'none';
-            document.getElementById('regForm').style.display = document.getElementById('regForm').style.display === 'none' ? 'block' : 'none';
+        let isLogin = true;
+        function toggleMode() {
+            isLogin = !isLogin;
+            document.getElementById('toggleBtn').innerText = isLogin ? "Chưa có tài khoản? Đăng ký" : "Đã có tài khoản? Đăng nhập";
         }
 
-        function processLogin() {
-            Swal.fire({ title: "Thành công!", text: "Đăng nhập thành công!", icon: "success", timer: 1500, showConfirmButton: false }).then(() => {
-                localStorage.setItem('isLoggedIn', 'true');
-                localStorage.setItem('userName', 'User_ABC123');
-                window.location.href = 'index.html';
-            });
+        function handleAuth() {
+            const user = document.getElementById('u').value;
+            const pass = document.getElementById('p').value;
+            if(!user || !pass) return Swal.fire('Lỗi', 'Nhập đủ tin ní ơi!', 'error');
+
+            if(!isLogin) {
+                // ĐĂNG KÝ: Lưu thông tin vào 'userData'
+                localStorage.setItem('userData', JSON.stringify({u: user, p: pass, b: 0}));
+                Swal.fire('Xong', 'Tạo tài khoản thành công!', 'success').then(() => location.reload());
+            } else {
+                // ĐĂNG NHẬP: Kiểm tra 'userData'
+                const data = JSON.parse(localStorage.getItem('userData'));
+                if(data && data.u === user && data.p === pass) {
+                    localStorage.setItem('isLogged', 'true'); // Đánh dấu đã đăng nhập
+                    window.location.href = 'index.html';
+                } else {
+                    Swal.fire('Lỗi', 'Sai tài khoản hoặc mật khẩu!', 'error');
+                }
+            }
         }
     </script>
 </body>
 </html>
-
