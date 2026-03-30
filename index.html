@@ -8,69 +8,49 @@
     <style>
         :root { --p: #ff4747; --d: #0b0b0b; --c: #1a1a1a; --o: #ff8c00; }
         body { background: var(--d); color: #fff; font-family: sans-serif; margin: 0; padding-bottom: 30px; }
-        /* Hiệu ứng chữ cầu vồng */
         .rainbow { background-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200% auto; animation: r 4s linear infinite; }
         @keyframes r { to { background-position: 200% center; } }
         .fs { background: linear-gradient(90deg, #ff4747, #ff8c00); padding: 10px; text-align: center; font-weight: bold; font-size: 12px; }
         .container { padding: 10px; max-width: 500px; margin: auto; }
         .box-nap { background: var(--c); padding: 20px; border-radius: 10px; border: 1px solid #333; margin-top: 15px; }
         select, input { width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: #fff; border-radius: 6px; margin-bottom: 12px; box-sizing: border-box; }
-        .btn-nap { width: 100%; padding: 14px; background: var(--p); color: #fff; border: none; font-weight: bold; border-radius: 8px; cursor: pointer; text-transform: uppercase; }
-        .marquee-box { background: rgba(0,0,0,0.6); border: 1px solid #222; padding: 5px; display: flex; align-items: center; gap: 8px; margin: 15px 0; border-radius: 4px; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
-        .card { background: var(--c); border-radius: 10px; border: 1px solid #333; overflow: hidden; text-align: center; padding-bottom: 12px; }
-        .card img { width: 100%; height: 110px; object-fit: cover; }
-        .btn-buy { width: 90%; padding: 9px; background: var(--o); border: none; color: #fff; font-weight: bold; border-radius: 6px; font-size: 11px; cursor: pointer; }
+        .btn-nap { width: 100%; padding: 14px; background: var(--p); color: #fff; border: none; font-weight: bold; border-radius: 8px; cursor: pointer; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .item { background: var(--c); border-radius: 8px; border: 1px solid #333; text-align: center; overflow: hidden; padding-bottom: 10px; }
+        .item img { width: 100%; height: 110px; object-fit: cover; }
+        .btn-buy { width: 90%; padding: 8px; background: var(--o); border: none; color: #fff; font-weight: bold; border-radius: 5px; font-size: 11px; cursor: pointer; }
     </style>
 </head>
 <body>
-    <script>if (localStorage.getItem('isLogin') !== 'true') window.location.href = 'auth.html';</script>
+    <script>
+        // SỬA LỖI VĂNG: Kiểm tra đúng biến 'isLogged'
+        if (localStorage.getItem('isLogged') !== 'true') {
+            window.location.href = 'auth.html';
+        }
+    </script>
 
-    <div class="fs">🔥 <span id="clock" class="rainbow">00:00:00</span> - <span id="date" class="rainbow">30/03/2026</span></div>
+    <div class="fs">🔥 <span id="clock" class="rainbow">00:00:00</span> - 30/03/2026</div>
 
     <div class="container">
-        <div class="marquee-box">
-            <img src="assets/run.gif" style="height:20px;">
-            <marquee id="news" style="color:#2ecc71; font-weight:bold; font-size:11px;">🎊 Đang tải thông báo nạp thẻ...</marquee>
+        <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+            <span style="font-size:12px;">Chào, <b id="u-name" class="rainbow">Ní</b></span>
+            <span style="font-size:12px;">Số dư: <b id="u-bal" style="color:var(--p)">0đ</b></span>
         </div>
 
         <div class="box-nap">
             <h4 style="text-align:center; color:var(--p); margin:0 0 15px 0;">NẠP THẺ TỰ ĐỘNG</h4>
-            <select id="telco"><option value="">-- Chọn loại thẻ --</option><option value="VIETTEL">Viettel</option><option value="VINAPHONE">Vinaphone</option></select>
-            <select id="amount"><option value="">-- Chọn mệnh giá --</option><option value="50000">50,000đ</option><option value="100000">100,000đ</option></select>
-            <input type="text" id="serial" placeholder="Số Serial">
-            <input type="text" id="pin" placeholder="Mã thẻ">
-            <button class="btn-nap" onclick="guiThe()">NẠP NGAY</button>
+            <select id="t"><option value="">-- Loại thẻ --</option><option>VIETTEL</option></select>
+            <select id="a"><option value="">-- Mệnh giá --</option><option>50000</option></select>
+            <input type="text" id="s" placeholder="Số Serial">
+            <input type="text" id="p" placeholder="Mã thẻ">
+            <button class="btn-nap" onclick="Swal.fire('Đã gửi', 'Đang chờ duyệt!', 'success')">NẠP NGAY</button>
         </div>
 
-        <h3 style="color:var(--o); font-size:14px; margin-top:25px;">🎁 TÚI MÙ (RANDOM BOX)</h3>
+        <h3 style="font-size:14px; color:var(--p); margin-top:20px;">🔥 DANH MỤC ACC GAME</h3>
         <div class="grid">
-            <div class="card">
-                <img src="assets/1000018749.gif"> <p style="font-size:12px;">Túi Mù FF Siêu Cấp</p>
-                <button class="btn-buy" onclick="location.href='tuimu_freefire.html'">XEM NGAY</button>
+            <div class="item">
+                <img src="assets/1000018758.jpg"> <p style="font-size:11px;">ACC FF GIÁ RẺ</p>
+                <button class="btn-buy" onclick="location.href='danhmuc_acc.html'">MUA NGAY</button>
             </div>
-            <div class="card">
-                <img src="assets/1000018758.jpg"> <p style="font-size:12px;">Túi Mù FC Mobile</p>
-                <button class="btn-buy" onclick="location.href='tuimu_fcmobile.html'">XEM NGAY</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Đồng hồ thời gian thực cầu vồng
-        function updateClock() {
-            const now = new Date();
-            document.getElementById('clock').innerText = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0') + ":" + now.getSeconds().toString().padStart(2, '0');
-        }
-        setInterval(updateClock, 1000); updateClock();
-
-        // Fake thông báo nạp tiền cho uy tín
-        const names = ["Ní_Cưng", "Minh_TraVinh", "Gamer_VIP", "Be_Chanh"];
-        document.getElementById('news').innerText = `🎊 Người dùng ${names[Math.floor(Math.random()*names.length)]} đã nạp thành công 100.000đ!`;
-
-        function guiThe() {
-            Swal.fire('Thành công', 'Thẻ đã gửi lên hệ thống, vui lòng đợi 1-3 phút để duyệt!', 'success');
-        }
-    </script>
-</body>
-</html>
+            <div class="item">
+                <img src="assets/100001
